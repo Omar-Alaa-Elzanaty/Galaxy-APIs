@@ -1,6 +1,6 @@
 ﻿namespace Galaxy.Domain.Constants
 {
-    public enum Gender : byte
+    public enum Gander : byte
     {
         Male,
         Female

@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Galaxy.Shared
+namespace Galaxy.Application.Interfaces.BarCode
 {
-    public enum Gender:byte
+    public interface IBarCodeSerivce
     {
-        Male,
-        Female
+        Task<long> GenerateCode();
     }
 }

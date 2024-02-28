@@ -7,12 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Comman\Mapping\" />
-    <Folder Include="Features\" />
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.9.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
@@ -23,6 +17,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Galaxy.Domain\Galaxy.Domain.csproj" />
+    <ProjectReference Include="..\Galaxy.Shared\Galaxy.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Customers\Commands\Create\" />
+    <Folder Include="Features\Customers\Commands\Delete\" />
+    <Folder Include="Features\Customers\Commands\" />
   </ItemGroup>
 
 </Project>

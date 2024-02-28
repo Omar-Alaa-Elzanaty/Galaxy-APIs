@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 
-namespace Pharamcy.Infrastructure.Services.Localization
+namespace Galaxy.Infrastructure.Services.Localization
 {
     public class JsonStringLocalizer : IStringLocalizer
     {
