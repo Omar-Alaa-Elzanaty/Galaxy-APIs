@@ -14,6 +14,7 @@ namespace Galaxy.Application.Features.Auth.SignUp.Command
     {
         public string UserName { get; set; }
         public string Password { get; set; }
+        public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public Gander Gender { get; set; }
         public string Email { get; set; }
@@ -29,11 +30,13 @@ namespace Galaxy.Application.Features.Auth.SignUp.Command
         public SignUpCommandHandler(
             UserManager<ApplicationUser> userManager,
             IStringLocalizer<SignUpCommandHandler> localization,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            IMapper mapper)
         {
             _userManager = userManager;
             _localization = localization;
             _roleManager = roleManager;
+            _mapper = mapper;
         }
 
         public async Task<Response> Handle(SignUpCommand command, CancellationToken cancellationToken)
@@ -54,7 +57,7 @@ namespace Galaxy.Application.Features.Auth.SignUp.Command
                 return await Response.FailureAsync(_localization["PhoneNumberExist"].Value);
             }
 
-            if(!await _roleManager.RoleExistsAsync(command.Role))
+            if (!await _roleManager.RoleExistsAsync(command.Role))
             {
                 return await Response.FailureAsync(_localization["RoleNotExist"].Value);
             }
@@ -62,7 +65,7 @@ namespace Galaxy.Application.Features.Auth.SignUp.Command
             var user = _mapper.Map<ApplicationUser>(command);
 
             await _userManager.CreateAsync(user,command.Password);
-            await _userManager.AddToRoleAsync(user,command.Role);
+            await _userManager.AddToRoleAsync(user, command.Role);
 
             return await Response.SuccessAsync(user.Id);
         }

@@ -1,13 +1,16 @@
 ﻿using System.Runtime.InteropServices;
 using Galaxy.Application.Features.Stores.Commands.TransferItem;
 using Galaxy.Application.Features.Stores.Queries.GetProductByBarCode;
+using Galaxy.Domain.Constants;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Galaxy.Presentation.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = Roles.OWNER)]
     public class StoreController : ApiControllerBase
     {
         private readonly IMediator _mediator;

@@ -8,14 +8,16 @@
         public  Task<T> GetItemOnAsync(Func<T,bool>match);
         //public  Task<IEnumerable<T>> GetAllByIdAsync(Func<T,bool>match);
         public  Task<IEnumerable<TResult>> GetOnCriteriaAsync<TResult>(Func<T,bool>match,Func<T,TResult>selector);
-
         public  Task<IEnumerable<T>> GetAllAsync();
 
         public IQueryable<T> Entities();
+
         public Task AddAsync(T input);
+        Task AddRangeAsync(List<T> input);
 
         public Task UpdateAsync(T input);
 
         public Task DeleteAsync(T input);
+        Task DeleteRange(List<T> input);
     }
 }

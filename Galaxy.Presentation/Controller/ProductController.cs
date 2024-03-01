@@ -4,14 +4,17 @@ using Galaxy.Application.Features.Products.Commands.Update;
 using Galaxy.Application.Features.Products.Queries.GetAllProducts;
 using Galaxy.Application.Features.Products.Queries.GetProductById;
 using Galaxy.Application.Features.Products.Queries.GetProductInDetails;
+using Galaxy.Domain.Constants;
 using Galaxy.Domain.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Galaxy.Presentation.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = Roles.OWNER)]
     public class ProductController : ApiControllerBase
     {
         private readonly IMediator _mediator;

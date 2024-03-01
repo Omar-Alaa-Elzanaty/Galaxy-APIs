@@ -36,7 +36,7 @@ namespace Galaxy.Application.Features.Auth.Login.LoginQueries
         {
             var user = await _userManger.FindByNameAsync(query.UserName);
 
-            if (user == null || await _userManger.CheckPasswordAsync(user, query.Password))
+            if (user == null || !await _userManger.CheckPasswordAsync(user, query.Password))
             {
                 return await Response.FailureAsync(_localization["InvalidLogin"].Value);
             }

@@ -4,6 +4,7 @@ using Galaxy.Presistance.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Galaxy.Presistance.Migrations
 {
     [DbContext(typeof(GalaxyDbContext))]
-    partial class GalaxyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240301082925_test11")]
+    partial class test11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -177,9 +180,6 @@ namespace Galaxy.Presistance.Migrations
                     b.Property<double>("CurrentPurChase")
                         .HasColumnType("float");
 
-                    b.Property<double?>("FixedPrice")
-                        .HasColumnType("float");
-
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -191,7 +191,7 @@ namespace Galaxy.Presistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("ProfitRatio")
+                    b.Property<double>("ProfitRatio")
                         .HasColumnType("float");
 
                     b.Property<double>("PurchasePrice")

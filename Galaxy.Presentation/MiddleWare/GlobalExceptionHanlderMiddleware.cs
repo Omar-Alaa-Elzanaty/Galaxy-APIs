@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Galaxy.Shared;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Localization;
 using Pharamcy.Shared.ErrorHandling;
 
 
@@ -15,9 +16,13 @@ namespace Pharamcy.Presentation.Middleware
     public class GlobalExceptionHanlderMiddleware
     {
         private readonly RequestDelegate _next;
-        public GlobalExceptionHanlderMiddleware(RequestDelegate next)
+        private readonly IStringLocalizer<GlobalExceptionHanlderMiddleware> _localization;
+        public GlobalExceptionHanlderMiddleware(
+            RequestDelegate next,
+            IStringLocalizer<GlobalExceptionHanlderMiddleware> stringLocalizer)
         {
             _next = next;
+            _localization = stringLocalizer;
         }
         public async Task Invoke(HttpContext context)
         {
@@ -29,7 +34,7 @@ namespace Pharamcy.Presentation.Middleware
 
                     var response = new Response();
                     response.IsSuccess = false;
-                    response.Message = "Unauthorize";
+                    response.Message = _localization["Unauthorize"].Value;
                     response.StatusCode = HttpStatusCode.Unauthorized;
                     context.Response.ContentType = "application/json";
                     context.Response.StatusCode = (int)HttpStatusCode.OK;

@@ -6,6 +6,12 @@ using Microsoft.OpenApi.Models;
 using Pharamcy.Presentation.Middleware;
 using Galaxy.Presistance.Extention;
 using System.Text;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Galaxy.Presistance.Context;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Galaxy.Domain.Identity;
+using Galaxy.Domain.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,10 +73,46 @@ builder.Services.AddAuthentication(options =>
 
 
 builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddCors();
 
+using (var scope = builder.Services.BuildServiceProvider().CreateScope())
+{
+    using (var galaxyDb = scope.ServiceProvider.GetRequiredService<GalaxyDbContext>())
+    {
+        if (galaxyDb.Database.GetPendingMigrations().Any())
+        {
+            galaxyDb.Database.Migrate();
+
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            if (!roleManager.Roles.Any())
+            {
+                await roleManager.CreateAsync(new IdentityRole(Roles.OWNER));
+                await roleManager.CreateAsync(new IdentityRole(Roles.Manager));
+                await roleManager.CreateAsync(new IdentityRole(Roles.SALE));
+            }
+            if (!userManager.Users.Any())
+            {
+                var user = new ApplicationUser()
+                {
+                    Email = "Galaxy@gmail.com",
+                    Name = "SystemAdmin",
+                    PhoneNumber = "111111111111",
+                    Gander = Gander.Male,
+                    EmployeeId = "0",
+                    UserName = "SystemAdmin"
+                };
+
+                await userManager.CreateAsync(user, "123@Abc");
+                await userManager.AddToRoleAsync(user, Roles.OWNER);
+            }
+        }
+    }
+
+}
 
 var app = builder.Build();
 
@@ -81,22 +123,22 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<GlobalExceptionHanlderMiddleware>();
-
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 
 var supportedCultures = new[] { "de", "ar" };
 
 var localizationOptions = new RequestLocalizationOptions()
-    .SetDefaultCulture(supportedCultures[0])
-    .AddSupportedCultures(supportedCultures);
+    .AddSupportedCultures(supportedCultures)
+    .SetDefaultCulture(supportedCultures[0]);
 
 app.UseRequestLocalization(localizationOptions);
 
-app.UseRouting();
 app.UseCors(c => c.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
+app.UseRouting();
+
+app.UseMiddleware<GlobalExceptionHanlderMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 

@@ -1,6 +1,9 @@
 ﻿using Galaxy.Application.Features.Auth.Login.LoginQueries;
 using Galaxy.Application.Features.Auth.SignUp.Command;
+using Galaxy.Domain.Constants;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Galaxy.Presentation.Controller
@@ -23,6 +26,7 @@ namespace Galaxy.Presentation.Controller
         }
 
         [HttpPost]
+        [Authorize(Roles = Roles.OWNER)]
         public async Task<ActionResult<int>>CreateAccount([FromForm]SignUpCommand command)
         {
             return Ok(await _mediator.Send(command));
