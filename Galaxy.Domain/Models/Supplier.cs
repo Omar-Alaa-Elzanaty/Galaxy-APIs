@@ -11,6 +11,6 @@ namespace Galaxy.Domain.Models
         public string Name { get; set; }
         public string ImageUrl { get; set; }
         public string IdUrl { get; set; }
-        public virtual ICollection<SupplierInovice> SupplierInovices { get; set; }
+        public virtual ICollection<SupplierInvoice> Invoices { get; set; }
     }
 }

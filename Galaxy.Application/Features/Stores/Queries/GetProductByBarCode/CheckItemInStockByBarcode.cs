@@ -10,11 +10,11 @@ namespace Galaxy.Application.Features.Stores.Queries.GetProductByBarCode
 {
     public record CheckItemInStockByBarcode : IRequest<Response>
     {
-        public int Code { get; set; }
+        public string BarCode { get; set; }
 
-        public CheckItemInStockByBarcode(int id)
+        public CheckItemInStockByBarcode(string barCode)
         {
-            Code = id;
+            BarCode = barCode;
         }
     }
 
@@ -34,7 +34,7 @@ namespace Galaxy.Application.Features.Stores.Queries.GetProductByBarCode
         public async Task<Response> Handle(CheckItemInStockByBarcode query, CancellationToken cancellationToken)
         {
             var productIsFound = await _unitOfWork.Repository<Stock>().Entities()
-                        .AnyAsync(x => x.BarCode == query.Code);
+                        .AnyAsync(x => x.BarCode == query.BarCode);
 
             if (!productIsFound)
             {

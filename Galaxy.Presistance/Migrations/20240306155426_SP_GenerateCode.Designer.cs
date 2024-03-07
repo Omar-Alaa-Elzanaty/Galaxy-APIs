@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Galaxy.Presistance.Migrations
 {
     [DbContext(typeof(GalaxyDbContext))]
-    [Migration("20240226152238_mg2")]
-    partial class mg2
+    [Migration("20240306155426_SP_GenerateCode")]
+    partial class SP_GenerateCode
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -116,9 +116,6 @@ namespace Galaxy.Presistance.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -140,42 +137,56 @@ namespace Galaxy.Presistance.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<string>("CustomerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Date")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ItemPrice")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Total")
-                        .HasColumnType("int");
+                    b.Property<double>("Total")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
                     b.ToTable("CusotmersInvoices", "Galaxy");
+                });
+
+            modelBuilder.Entity("Galaxy.Domain.Models.CustomerInvoiceItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CustomerInvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("ItemPrice")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Total")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerInvoiceId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CustomerInvoiceItem", "Galaxy");
                 });
 
             modelBuilder.Entity("Galaxy.Domain.Models.Product", b =>
@@ -189,7 +200,7 @@ namespace Galaxy.Presistance.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("CurrentPurChase")
+                    b.Property<double>("CurrentPurchase")
                         .HasColumnType("float");
 
                     b.Property<string>("ImageUrl")
@@ -203,17 +214,15 @@ namespace Galaxy.Presistance.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("ProfitRatio")
-                        .HasColumnType("float");
-
-                    b.Property<double>("PurchasePrice")
-                        .HasColumnType("float");
-
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
                     b.Property<double>("SellingPrice")
                         .HasColumnType("float");
+
+                    b.Property<string>("SerialCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -228,19 +237,29 @@ namespace Galaxy.Presistance.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<long>("BarCode")
-                        .HasColumnType("bigint");
+                    b.Property<string>("BarCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<bool>("IsInStock")
+                        .HasColumnType("bit");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SupplierId")
+                    b.Property<int?>("SupplierId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BarCode");
+
+                    SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("BarCode"), false);
 
                     b.HasIndex("ProductId");
 
@@ -277,7 +296,7 @@ namespace Galaxy.Presistance.Migrations
                     b.ToTable("Suppliers", "Galaxy");
                 });
 
-            modelBuilder.Entity("Galaxy.Domain.Models.SupplierInovice", b =>
+            modelBuilder.Entity("Galaxy.Domain.Models.SupplierInvoice", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -291,14 +310,46 @@ namespace Galaxy.Presistance.Migrations
                     b.Property<int>("SupplierId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TotalPay")
-                        .HasColumnType("int");
+                    b.Property<double>("TotalPay")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SupplierId");
 
                     b.ToTable("SuppliersInovices", "Galaxy");
+                });
+
+            modelBuilder.Entity("Galaxy.Domain.Models.SupplierInvoiceItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("ItemPrice")
+                        .HasColumnType("float");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SupplierInvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Total")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SupplierInvoiceId");
+
+                    b.ToTable("SupplierInvoiceItem", "Galaxy");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -436,9 +487,28 @@ namespace Galaxy.Presistance.Migrations
 
             modelBuilder.Entity("Galaxy.Domain.Models.CustomerInvoice", b =>
                 {
-                    b.HasOne("Galaxy.Domain.Models.Customer", null)
+                    b.HasOne("Galaxy.Domain.Models.Customer", "Customer")
                         .WithMany("Invoices")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Galaxy.Domain.Models.CustomerInvoiceItem", b =>
+                {
+                    b.HasOne("Galaxy.Domain.Models.CustomerInvoice", "CustomerInvoice")
+                        .WithMany("Items")
+                        .HasForeignKey("CustomerInvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Galaxy.Domain.Models.Product", null)
+                        .WithMany("CustomerInvoiceItems")
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("CustomerInvoice");
                 });
 
             modelBuilder.Entity("Galaxy.Domain.Models.Stock", b =>
@@ -451,24 +521,41 @@ namespace Galaxy.Presistance.Migrations
 
                     b.HasOne("Galaxy.Domain.Models.Supplier", "Supplier")
                         .WithMany()
-                        .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SupplierId");
 
                     b.Navigation("Product");
 
                     b.Navigation("Supplier");
                 });
 
-            modelBuilder.Entity("Galaxy.Domain.Models.SupplierInovice", b =>
+            modelBuilder.Entity("Galaxy.Domain.Models.SupplierInvoice", b =>
                 {
                     b.HasOne("Galaxy.Domain.Models.Supplier", "Supplier")
-                        .WithMany("SupplierInovices")
+                        .WithMany("Invoices")
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("Galaxy.Domain.Models.SupplierInvoiceItem", b =>
+                {
+                    b.HasOne("Galaxy.Domain.Models.Product", "Product")
+                        .WithMany("SuppliersInvoiceItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Galaxy.Domain.Models.SupplierInvoice", "SupplierInovice")
+                        .WithMany("Items")
+                        .HasForeignKey("SupplierInvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("SupplierInovice");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -527,14 +614,28 @@ namespace Galaxy.Presistance.Migrations
                     b.Navigation("Invoices");
                 });
 
+            modelBuilder.Entity("Galaxy.Domain.Models.CustomerInvoice", b =>
+                {
+                    b.Navigation("Items");
+                });
+
             modelBuilder.Entity("Galaxy.Domain.Models.Product", b =>
                 {
+                    b.Navigation("CustomerInvoiceItems");
+
                     b.Navigation("ItemsInStock");
+
+                    b.Navigation("SuppliersInvoiceItems");
                 });
 
             modelBuilder.Entity("Galaxy.Domain.Models.Supplier", b =>
                 {
-                    b.Navigation("SupplierInovices");
+                    b.Navigation("Invoices");
+                });
+
+            modelBuilder.Entity("Galaxy.Domain.Models.SupplierInvoice", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

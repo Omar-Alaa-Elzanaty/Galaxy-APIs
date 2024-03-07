@@ -3,7 +3,7 @@ using Galaxy.Infrastructure.Extention;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Pharamcy.Presentation.Middleware;
+using Galaxy.Presentation.Middleware;
 using Galaxy.Presistance.Extention;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

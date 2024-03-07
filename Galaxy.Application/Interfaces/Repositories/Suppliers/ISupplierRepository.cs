@@ -9,6 +9,6 @@ namespace Galaxy.Application.Interfaces.Repositories.Suppliers
 {
     public interface ISupplierRepository:IBaseRepository<Supplier>
     {
-        Task<HashSet<SupplierLatestPruchasesDto>> GetSupplirsLatestPruchases();
+
     }
 }

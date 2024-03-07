@@ -33,15 +33,18 @@ namespace Galaxy.Application.Features.Suppliers.Queries.GetAllSuppliers
 
         public async Task<Response> Handle(GetAllSupplierQuery request, CancellationToken cancellationToken)
         {
-            var entities = await _unitOfWork.Repository<Supplier>().GetAllAsync();
+            var suppliers = _unitOfWork.Repository<Supplier>().Entities()
+                           .Select(x => new GetAllSupplierQueryDto()
+                           {
+                               Id = x.Id,
+                               Name = x.Name,
+                               IdUrl = x.IdUrl,
+                               ImageUrl = x.ImageUrl,
+                               LatestPurchase = x.Invoices.OrderBy(x => x.CreationDate).FirstOrDefault()!.CreationDate
+                           });
 
-            var supplierLastPurshaces = await _supplierRepository.GetSupplirsLatestPruchases();
-            var suppliers = _mapper.Map<List<GetAllSupplierQueryDto>>(entities);
 
-            foreach(var supplier in suppliers)
-            {
-                supplier.LatestPurchase = supplierLastPurshaces.FirstOrDefault(x => x.SupplierId == supplier.Id)?.LastPruchase;
-            }
+
 
             return await Response.SuccessAsync(suppliers);
         }

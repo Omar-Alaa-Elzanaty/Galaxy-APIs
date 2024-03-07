@@ -11,5 +11,7 @@ namespace Galaxy.Application.Interfaces.Repositories
     {
         Task<int> NumberOfProductInStock(int productId);
         Task<int> NumberOfProductInStore(int productId);
+        public void InsertImportToStock(int startSerial, int productId, int supplierId, int quantity, string intialCode);
+
     }
 }

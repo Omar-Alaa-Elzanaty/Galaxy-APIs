@@ -10,7 +10,7 @@ namespace Galaxy.Application.Features.Stores.Commands.TransferItem
     public record TransferItemCommand : IRequest<Response>
     {
         public bool IsToStore { get; set; }
-        public List<long> ItemsBarCode { get; set; } = new List<long>();
+        public List<string> ItemsBarCode { get; set; } = [];
     }
     internal class TransferItemCommandHandler : IRequestHandler<TransferItemCommand, Response>
     {

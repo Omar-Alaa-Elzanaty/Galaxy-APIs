@@ -4,6 +4,7 @@ using Galaxy.Application.Features.Products.Commands.Update;
 using Galaxy.Application.Features.Products.Queries.GetAllProducts;
 using Galaxy.Application.Features.Products.Queries.GetProductById;
 using Galaxy.Application.Features.Products.Queries.GetProductInDetails;
+using Galaxy.Application.Features.Products.Queries.GetProductsNames;
 using Galaxy.Domain.Constants;
 using Galaxy.Domain.Models;
 using MediatR;
@@ -47,6 +48,13 @@ namespace Galaxy.Presentation.Controller
         {
             return Ok(await _mediator.Send(new DeleteProductCommand(id)));
         }
+
+        [HttpGet("GetProductsName")]
+        public async Task<ActionResult<int>> GetProductionsNames()
+        {
+            return Ok(await _mediator.Send(new GetProductsNamesQuery()));
+        }
+
         [HttpPut("{id}")]
         public async Task<ActionResult<int>> Update([FromForm] UpdateProductCommand command, int id)
         {

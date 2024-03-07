@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Galaxy.Domain
+namespace Galaxy.Application.Features.Products.Queries.GetProductsNames
 {
-    public class BaseEntity
+    public class GetProductsNamesQueryDto
     {
         public int Id { get; set; }
-        public DateTime CreationDate { get; set; } = DateTime.Now;
+        public string Name { get; set; }
     }
 }

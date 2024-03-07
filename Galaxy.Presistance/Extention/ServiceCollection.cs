@@ -23,13 +23,17 @@ namespace Galaxy.Presistance.Extention
 
             return services;
         }
+
         public static IServiceCollection AddContext(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("DbConnection");
 
             services.AddDbContext<GalaxyDbContext>(options =>
                options.UseLazyLoadingProxies().UseSqlServer(connectionString,
-                   builder => builder.MigrationsAssembly(typeof(GalaxyDbContext).Assembly.FullName)));
+                   builder =>
+                   {
+                       builder.MigrationsAssembly(typeof(GalaxyDbContext).Assembly.FullName);
+                   }));
             // Identity configuration
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<GalaxyDbContext>()

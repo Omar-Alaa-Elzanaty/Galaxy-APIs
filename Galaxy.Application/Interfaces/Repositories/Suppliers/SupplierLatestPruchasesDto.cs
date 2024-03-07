@@ -10,5 +10,6 @@ namespace Galaxy.Application.Interfaces.Repositories.Suppliers
     {
         public int SupplierId { get; set; }
         public DateTime? LastPruchase { get; set; }
+        public double TotalPay { get;set; }
     }
 }

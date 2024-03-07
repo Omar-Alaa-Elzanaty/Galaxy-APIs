@@ -5,5 +5,7 @@
   "InvalidReqeust": "Ungültige Anfrage!!! Bitte versuche es erneut!",
   "ProductExist": "Produkt existiert bereits.",
   "ItemNotFound": "Artikel wurde nicht gefunden.",
-  "Unauthorize": "Nicht autorisieren."
+  "Unauthorize": "Nicht autorisieren.",
+  "ErrorBarcoding": "",
+  "GenerateBarCodeError": ""
 }

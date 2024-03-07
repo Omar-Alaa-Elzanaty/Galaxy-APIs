@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Galaxy.Presistance.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreation : Migration
+    public partial class IntialCreation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,7 +26,6 @@ namespace Galaxy.Presistance.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -43,10 +42,10 @@ namespace Galaxy.Presistance.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PurchasePrice = table.Column<double>(type: "float", nullable: false),
-                    CurrentPurChase = table.Column<double>(type: "float", nullable: false),
+                    CurrentPurchase = table.Column<double>(type: "float", nullable: false),
                     SellingPrice = table.Column<double>(type: "float", nullable: false),
-                    ProfitRatio = table.Column<double>(type: "float", nullable: false),
+                    Rating = table.Column<int>(type: "int", nullable: false),
+                    SerialCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LowInventoryIn = table.Column<int>(type: "int", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -95,7 +94,7 @@ namespace Galaxy.Presistance.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     EmployeeId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Gender = table.Column<byte>(type: "tinyint", nullable: false),
+                    Gander = table.Column<byte>(type: "tinyint", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -123,14 +122,8 @@ namespace Galaxy.Presistance.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Amount = table.Column<int>(type: "int", nullable: false),
-                    ItemPrice = table.Column<int>(type: "int", nullable: false),
-                    Total = table.Column<int>(type: "int", nullable: false),
-                    CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true),
+                    Total = table.Column<double>(type: "float", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -141,28 +134,6 @@ namespace Galaxy.Presistance.Migrations
                         column: x => x.CustomerId,
                         principalSchema: "Galaxy",
                         principalTable: "Customers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ItemInStock",
-                schema: "Galaxy",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BarCode = table.Column<long>(type: "bigint", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ItemInStock", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ItemInStock_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalSchema: "Galaxy",
-                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -191,12 +162,44 @@ namespace Galaxy.Presistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ItemInStock",
+                schema: "Galaxy",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BarCode = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IsInStock = table.Column<bool>(type: "bit", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    SupplierId = table.Column<int>(type: "int", nullable: true),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemInStock", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItemInStock_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalSchema: "Galaxy",
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ItemInStock_Suppliers_SupplierId",
+                        column: x => x.SupplierId,
+                        principalSchema: "Galaxy",
+                        principalTable: "Suppliers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SuppliersInovices",
                 schema: "Galaxy",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    TotalPay = table.Column<double>(type: "float", nullable: false),
                     SupplierId = table.Column<int>(type: "int", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -306,6 +309,70 @@ namespace Galaxy.Presistance.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CustomerInvoiceItem",
+                schema: "Galaxy",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    ItemPrice = table.Column<double>(type: "float", nullable: false),
+                    Total = table.Column<double>(type: "float", nullable: false),
+                    CustomerInvoiceId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomerInvoiceItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CustomerInvoiceItem_CusotmersInvoices_CustomerInvoiceId",
+                        column: x => x.CustomerInvoiceId,
+                        principalSchema: "Galaxy",
+                        principalTable: "CusotmersInvoices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CustomerInvoiceItem_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalSchema: "Galaxy",
+                        principalTable: "Products",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SupplierInvoiceItem",
+                schema: "Galaxy",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    ItemPrice = table.Column<double>(type: "float", nullable: false),
+                    Total = table.Column<double>(type: "float", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    SupplierInvoiceId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SupplierInvoiceItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SupplierInvoiceItem_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalSchema: "Galaxy",
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SupplierInvoiceItem_SuppliersInovices_SupplierInvoiceId",
+                        column: x => x.SupplierInvoiceId,
+                        principalSchema: "Galaxy",
+                        principalTable: "SuppliersInovices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CusotmersInvoices_CustomerId",
                 schema: "Galaxy",
@@ -313,10 +380,35 @@ namespace Galaxy.Presistance.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CustomerInvoiceItem_CustomerInvoiceId",
+                schema: "Galaxy",
+                table: "CustomerInvoiceItem",
+                column: "CustomerInvoiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerInvoiceItem_ProductId",
+                schema: "Galaxy",
+                table: "CustomerInvoiceItem",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemInStock_BarCode",
+                schema: "Galaxy",
+                table: "ItemInStock",
+                column: "BarCode")
+                .Annotation("SqlServer:Clustered", false);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ItemInStock_ProductId",
                 schema: "Galaxy",
                 table: "ItemInStock",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemInStock_SupplierId",
+                schema: "Galaxy",
+                table: "ItemInStock",
+                column: "SupplierId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",
@@ -331,6 +423,18 @@ namespace Galaxy.Presistance.Migrations
                 column: "NormalizedName",
                 unique: true,
                 filter: "[NormalizedName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SupplierInvoiceItem_ProductId",
+                schema: "Galaxy",
+                table: "SupplierInvoiceItem",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SupplierInvoiceItem_SupplierInvoiceId",
+                schema: "Galaxy",
+                table: "SupplierInvoiceItem",
+                column: "SupplierInvoiceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SuppliersInovices_SupplierId",
@@ -375,7 +479,7 @@ namespace Galaxy.Presistance.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CusotmersInvoices",
+                name: "CustomerInvoiceItem",
                 schema: "Galaxy");
 
             migrationBuilder.DropTable(
@@ -387,7 +491,7 @@ namespace Galaxy.Presistance.Migrations
                 schema: "Account");
 
             migrationBuilder.DropTable(
-                name: "SuppliersInovices",
+                name: "SupplierInvoiceItem",
                 schema: "Galaxy");
 
             migrationBuilder.DropTable(
@@ -407,7 +511,7 @@ namespace Galaxy.Presistance.Migrations
                 schema: "Account");
 
             migrationBuilder.DropTable(
-                name: "Customers",
+                name: "CusotmersInvoices",
                 schema: "Galaxy");
 
             migrationBuilder.DropTable(
@@ -415,7 +519,7 @@ namespace Galaxy.Presistance.Migrations
                 schema: "Galaxy");
 
             migrationBuilder.DropTable(
-                name: "Suppliers",
+                name: "SuppliersInovices",
                 schema: "Galaxy");
 
             migrationBuilder.DropTable(
@@ -425,6 +529,14 @@ namespace Galaxy.Presistance.Migrations
             migrationBuilder.DropTable(
                 name: "Users",
                 schema: "Account");
+
+            migrationBuilder.DropTable(
+                name: "Customers",
+                schema: "Galaxy");
+
+            migrationBuilder.DropTable(
+                name: "Suppliers",
+                schema: "Galaxy");
         }
     }
 }

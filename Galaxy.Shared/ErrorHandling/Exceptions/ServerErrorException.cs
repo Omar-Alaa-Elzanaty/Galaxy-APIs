@@ -2,7 +2,7 @@
 using Galaxy.Shared;
 using Microsoft.AspNetCore.Http;
 
-namespace Pharamcy.Shared.ErrorHandling.Exceptions
+namespace Galaxy.Shared.ErrorHandling.Exceptions
 {
     public class ServerErrorException : GlobalException
     {

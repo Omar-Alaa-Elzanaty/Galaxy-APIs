@@ -10,7 +10,7 @@ namespace Galaxy.Application.Features.Suppliers.Queries.GetAllLatestPruchases
     {
         public int Id { get; set; }
         public string Name {  get; set; }
-        public int TotalPay { get; set; }
-        public DateTime? LastPruchases { get; set; }
+        public double? TotalPay { get; set; }
+        public DateTime? Date { get; set; }
     }
 }

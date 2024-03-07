@@ -35,7 +35,7 @@ namespace Galaxy.Presentation.Controller
         [HttpGet("latestPurchases")]
         public async Task<ActionResult<GetAllLatestPruchasesQueryDto>> GetallLatestPurchases()
         {
-            return Ok(await _mediator.Send(new GetAllLatestPruchasesQuery()));
+            return Ok(await _mediator.Send(new GetAllLatestSupplierPruchasesQuery()));
         }
 
     }

@@ -16,7 +16,7 @@ namespace Pharamcy.Presistance.Repositories
 
         public async Task<T> GetByIdAsync(int id)
         {
-            return _dbContext.Set<T>().Find(id);
+            return await _dbContext.Set<T>().FindAsync(id);
         }
 
         public Task AddAsync(T input)
@@ -63,7 +63,5 @@ namespace Pharamcy.Presistance.Repositories
         {
             return _dbContext.Set<T>().Where(match).Select(selector);
         }
-
-
     }
 }

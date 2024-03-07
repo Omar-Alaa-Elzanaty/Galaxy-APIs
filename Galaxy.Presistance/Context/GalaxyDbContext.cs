@@ -3,6 +3,7 @@ using Galaxy.Domain.Identity;
 using Galaxy.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace Galaxy.Presistance.Context
@@ -34,7 +35,7 @@ namespace Galaxy.Presistance.Context
         public DbSet<Stock> ItemInStock { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<CustomerInvoice> CusotmersInvoices { get; set; }
-        public DbSet<SupplierInovice> SuppliersInovices { get; set; }
+        public DbSet<SupplierInvoice> SuppliersInovices { get; set; }
 
     }
 }

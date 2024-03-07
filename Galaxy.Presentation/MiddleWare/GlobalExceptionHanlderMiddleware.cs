@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 using Galaxy.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
-using Pharamcy.Shared.ErrorHandling;
+using Galaxy.Shared.ErrorHandling;
 
 
-namespace Pharamcy.Presentation.Middleware
+namespace Galaxy.Presentation.Middleware
 {
     public class GlobalExceptionHanlderMiddleware
     {

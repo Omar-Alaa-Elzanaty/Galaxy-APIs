@@ -5,5 +5,7 @@
   "InvalidReqeust": ".طلب غير صحيح",
   "ProductExist": ".المنتج موجود مسبقا",
   "ItemNotFound": ".فشل ايجاد العنصر",
-  "Unauthorize": ".لا تملك صلاحية"
+  "Unauthorize": ".لا تملك صلاحية",
+  "ErrorBarcoding": "",
+  "GenerateBarCodeError": ""
 }

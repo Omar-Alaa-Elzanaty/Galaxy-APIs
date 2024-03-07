@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Galaxy.Application.Interfaces.BarCode;
 using Galaxy.Application.Interfaces.Repositories;
 using Galaxy.Domain.Models;
 using Galaxy.Shared;
@@ -25,19 +26,22 @@ namespace Galaxy.Application.Features.Products.Commands.Create
         private readonly IStringLocalizer<AddProductCommandHandler> _localization;
         private readonly IMapper _mapper;
         private readonly IMediaService _mediaService;
+        private readonly IBarCodeSerivce _barCodeSerivce;
 
         public AddProductCommandHandler(
             IUnitOfWork unitOfWork,
             IValidator<AddProductCommand> validator,
             IStringLocalizer<AddProductCommandHandler> localization,
             IMapper mapper,
-            IMediaService mediaService)
+            IMediaService mediaService,
+            IBarCodeSerivce barCodeSerivce)
         {
             _unitOfWork = unitOfWork;
             _validator = validator;
             _localization = localization;
             _mapper = mapper;
             _mediaService = mediaService;
+            _barCodeSerivce = barCodeSerivce;
         }
 
         public async Task<Response> Handle(AddProductCommand command, CancellationToken cancellationToken)
@@ -56,6 +60,10 @@ namespace Galaxy.Application.Features.Products.Commands.Create
 
             var product = _mapper.Map<Product>(command);
             product.ImageUrl = await _mediaService.SaveAsync(command.ImageFile);
+
+
+            var productCount = await _unitOfWork.Repository<Product>().Entities().CountAsync(cancellationToken: cancellationToken) + 1;
+            product.SerialCode = _barCodeSerivce.CompleteString(productCount.ToString(), 4);
 
             await _unitOfWork.Repository<Product>().AddAsync(product);
             await _unitOfWork.SaveAsync();

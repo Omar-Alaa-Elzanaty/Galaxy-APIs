@@ -11,7 +11,6 @@
         public  Task<IEnumerable<T>> GetAllAsync();
 
         public IQueryable<T> Entities();
-
         public Task AddAsync(T input);
         Task AddRangeAsync(List<T> input);
 

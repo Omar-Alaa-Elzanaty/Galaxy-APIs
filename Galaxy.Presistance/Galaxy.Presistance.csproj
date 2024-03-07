@@ -28,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Galaxy.Application\Galaxy.Application.csproj" />
     <ProjectReference Include="..\Galaxy.Domain\Galaxy.Domain.csproj" />
+    <ProjectReference Include="..\Galaxy.Shared\Galaxy.Shared.csproj" />
   </ItemGroup>
 
 </Project>
