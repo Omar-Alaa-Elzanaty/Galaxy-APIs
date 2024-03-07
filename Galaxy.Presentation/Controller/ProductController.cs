@@ -2,6 +2,7 @@
 using Galaxy.Application.Features.Products.Commands.Delete;
 using Galaxy.Application.Features.Products.Commands.Update;
 using Galaxy.Application.Features.Products.Queries.GetAllProducts;
+using Galaxy.Application.Features.Products.Queries.GetProductByBarCode;
 using Galaxy.Application.Features.Products.Queries.GetProductById;
 using Galaxy.Application.Features.Products.Queries.GetProductInDetails;
 using Galaxy.Application.Features.Products.Queries.GetProductsNames;
@@ -41,6 +42,12 @@ namespace Galaxy.Presentation.Controller
         public async Task<ActionResult<GetProductByIdQuery>> GetById(int id)
         {
             return Ok(await _mediator.Send(new GetProductByIdQuery(id)));
+        }
+
+        [HttpGet("Barcode/{barCode}")]
+        public async Task<ActionResult<GetProductByBarCodeQueryDto>>GetProductByBarCode(string barCode)
+        {
+            return Ok(await _mediator.Send(new GetProductByBarCodeQuery(barCode)));
         }
 
         [HttpDelete("{id}")]

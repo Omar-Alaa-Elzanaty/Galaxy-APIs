@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using Galaxy.Application.Features.Stores.Commands.TransferItem;
-using Galaxy.Application.Features.Stores.Queries.GetProductByBarCode;
+using Galaxy.Application.Features.Stores.Queries.CheckItemByBarCode;
 using Galaxy.Application.Features.SupplierInvoices.Create;
 using Galaxy.Domain.Constants;
 using MediatR;
@@ -33,7 +33,7 @@ namespace Galaxy.Presentation.Controller
             return Ok(await _mediator.Send(command));
         }
         [HttpPost]
-        public async Task<ActionResult<string>> AddItems(CreateSupplierInvoice command)
+        public async Task<ActionResult<string>> AddItems(CreateSupplierInvoiceCommand command)
         {
             return Ok(await _mediator.Send(command));
         }

@@ -7,9 +7,9 @@ using FluentValidation;
 
 namespace Galaxy.Application.Features.SupplierInvoices.Create
 {
-    public class CreateSupplierInvoiceValidator:AbstractValidator<CreateSupplierInvoice>
+    public class CreateSupplierInvoiceCommandValidator:AbstractValidator<CreateSupplierInvoiceCommand>
     {
-        public CreateSupplierInvoiceValidator()
+        public CreateSupplierInvoiceCommandValidator()
         {
             
         }

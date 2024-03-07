@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
-namespace Galaxy.Application.Features.Stores.Queries.GetProductByBarCode
+namespace Galaxy.Application.Features.Stores.Queries.CheckItemByBarCode
 {
     public record CheckItemInStockByBarcode : IRequest<Response>
     {

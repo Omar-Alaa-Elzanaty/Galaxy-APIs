@@ -11,7 +11,7 @@ using Microsoft.Extensions.Localization;
 
 namespace Galaxy.Application.Features.SupplierInvoices.Create
 {
-    public record CreateSupplierInvoice : IRequest<Response>
+    public record CreateSupplierInvoiceCommand : IRequest<Response>
     {
         public int SupplierId { get; set; }
         public double TotalInvoiceCost { get; set; }
@@ -25,7 +25,7 @@ namespace Galaxy.Application.Features.SupplierInvoices.Create
         public double CurrentPurchase { get; set; }
         public double SellingPrice { get; set; }
     }
-    internal class CreateSupplierInvoiceHandler : IRequestHandler<CreateSupplierInvoice, Response>
+    internal class CreateSupplierInvoiceHandler : IRequestHandler<CreateSupplierInvoiceCommand, Response>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IBarCodeSerivce _barCodeSerivce;
@@ -50,7 +50,7 @@ namespace Galaxy.Application.Features.SupplierInvoices.Create
             _stockRepository = stockRepository;
         }
 
-        public async Task<Response> Handle(CreateSupplierInvoice command, CancellationToken cancellationToken)
+        public async Task<Response> Handle(CreateSupplierInvoiceCommand command, CancellationToken cancellationToken)
         {
             var newInovice = new SupplierInvoice()
             {
@@ -58,6 +58,8 @@ namespace Galaxy.Application.Features.SupplierInvoices.Create
                 TotalPay = command.TotalInvoiceCost,
                 SupplierId = command.SupplierId
             };
+
+            var BarCodes = new List<ProductsBarCodesDto>();
 
             var yearCode = _barCodeSerivce.CompleteString((DateTime.Now.Year % 1000).ToString(), 4);
 
@@ -98,18 +100,23 @@ namespace Galaxy.Application.Features.SupplierInvoices.Create
                 intialCode: yearCode + product.SerialCode
                 );
 
-                //for (int i = 0; i < item.Quantity; i++)
-                //{
-                //    var itemInstock = new Stock()
-                //    {
-                //        ProductId = item.ProductId,
-                //        BarCode = yearCode + product.SerialCode + _barCodeSerivce.CompleteString(serialNumber.ToString(), 5),
-                //        IsInStock = true,
-                //        SupplierId = command.SupplierId
-                //    };
-                //    //dataTable.Rows.Add(itemInstock.BarCode,itemInstock.IsInStock,itemInstock.ProductId,itemInstock.SupplierId);
-                //    serialNumber++;
-                //}
+                var intialCode = yearCode + product.SerialCode;
+                var productBarCodes = new ProductsBarCodesDto() { ProductName = product.Name };
+
+                for (int i = 0; i < item.Quantity; i++)
+                {
+                    productBarCodes.BarCodes.Add(intialCode + _barCodeSerivce.CompleteString(serialNumber.ToString(), 5));
+
+                    //var itemInstock = new Stock()
+                    //{
+                    //    ProductId = item.ProductId,
+                    //    BarCode = yearCode + product.SerialCode + _barCodeSerivce.CompleteString(serialNumber.ToString(), 5),
+                    //    IsInStock = true,
+                    //    SupplierId = command.SupplierId
+                    //};
+                    //dataTable.Rows.Add(itemInstock.BarCode,itemInstock.IsInStock,itemInstock.ProductId,itemInstock.SupplierId);
+                    serialNumber++;
+                }
 
                 product = _mapper.Map(item, product); //update product
 
@@ -123,6 +130,8 @@ namespace Galaxy.Application.Features.SupplierInvoices.Create
                     ProductId = product.Id,
                     Total = item.TotalCost
                 });
+
+                BarCodes.Add(productBarCodes);
             }
 
             await _unitOfWork.Repository<SupplierInvoice>().AddAsync(newInovice);
@@ -143,7 +152,7 @@ namespace Galaxy.Application.Features.SupplierInvoices.Create
             //    connection.Close();
             //}
 
-            return await Response.SuccessAsync(_localization["Success"].Value);
+            return await Response.SuccessAsync(BarCodes,_localization["Success"].Value);
         }
     }
 }
