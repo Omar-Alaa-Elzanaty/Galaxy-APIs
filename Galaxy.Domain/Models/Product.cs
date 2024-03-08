@@ -9,7 +9,7 @@
         public int Rating { get; set; }
         public string SerialCode {  get; set; }
         public int LowInventoryIn { get; set; }
-        public virtual ICollection<Stock> ItemsInStock { get; set; }
+        public virtual List<Stock> ItemsInStock { get; set; }
         public virtual List<CustomerInvoiceItem> CustomerInvoiceItems { get; set; }
         public virtual List<SupplierInvoiceItem> SuppliersInvoiceItems { get; set;}
     }

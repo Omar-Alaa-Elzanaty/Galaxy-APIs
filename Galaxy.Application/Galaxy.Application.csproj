@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\CustomerInvoices\Queries\" />
     <Folder Include="Features\Customers\Commands\Create\" />
     <Folder Include="Features\Customers\Commands\Delete\" />
     <Folder Include="Features\Customers\Commands\" />

@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using Galaxy.Application.Features.Stores.Commands.TransferItem;
 using Galaxy.Application.Features.Stores.Queries.CheckItemByBarCode;
+using Galaxy.Application.Features.Stores.Queries.GetLowInventories;
 using Galaxy.Application.Features.SupplierInvoices.Create;
 using Galaxy.Domain.Constants;
 using MediatR;
@@ -36,6 +37,11 @@ namespace Galaxy.Presentation.Controller
         public async Task<ActionResult<string>> AddItems(CreateSupplierInvoiceCommand command)
         {
             return Ok(await _mediator.Send(command));
+        }
+        [HttpGet("needToImport")]
+        public async Task<ActionResult<List<GetLowInventoriesQueryDto>>> LowInventory()
+        {
+            return Ok(await _mediator.Send(new GetLowInventoriesQuery()));
         }
 
     }

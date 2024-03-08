@@ -44,7 +44,7 @@ namespace Galaxy.Presentation.Controller
             return Ok(await _mediator.Send(new GetProductByIdQuery(id)));
         }
 
-        [HttpGet("Barcode/{barCode}")]
+        [HttpGet("barcode/{barCode}")]
         public async Task<ActionResult<GetProductByBarCodeQueryDto>>GetProductByBarCode(string barCode)
         {
             return Ok(await _mediator.Send(new GetProductByBarCodeQuery(barCode)));
@@ -56,7 +56,7 @@ namespace Galaxy.Presentation.Controller
             return Ok(await _mediator.Send(new DeleteProductCommand(id)));
         }
 
-        [HttpGet("GetProductsName")]
+        [HttpGet("getProductsName")]
         public async Task<ActionResult<int>> GetProductionsNames()
         {
             return Ok(await _mediator.Send(new GetProductsNamesQuery()));

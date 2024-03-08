@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Galaxy.Presentation.Controller
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ApiControllerBase
     {
@@ -19,13 +19,13 @@ namespace Galaxy.Presentation.Controller
             _mediator = mediator;
         }
 
-        [HttpPost]
+        [HttpPost("login")]
         public async Task<ActionResult<LoginQueryDto>> Login(LoginQuery query)
         {
             return Ok(await _mediator.Send(query));
         }
 
-        [HttpPost]
+        [HttpPost("createAccount")]
         [Authorize(Roles = Roles.OWNER)]
         public async Task<ActionResult<int>>CreateAccount([FromForm]SignUpCommand command)
         {
