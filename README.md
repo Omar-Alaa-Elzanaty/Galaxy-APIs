@@ -53,6 +53,11 @@ The first four digits represent the year
 * Auto Generation barcode for each item comes from  suppliers
 * Tracking Low inventory for each product to be aware of amounts.
 
+## Database Diagram : :fast_forward:	
+
+![Database](https://github.com/Omar-Alaa-Elzanaty/Galaxy-APIs/assets/94639386/b8ba63a7-8c8c-4614-bb77-6e13d79fbd22)
+
+
 ## JSON APIs file
 
 I Uploaded API collections that can be imported to Postman and tested it.
