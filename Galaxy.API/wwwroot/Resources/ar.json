@@ -1,3 +1,11 @@
 {
-
+  "Success": ".عملية ناجحة",
+  "InvalidLogin": ".رقم المستخدم او كلمة السر غير صالح",
+  "SupplierExist": ".المورد موجود مسبقا",
+  "InvalidReqeust": ".طلب غير صحيح",
+  "ProductExist": ".المنتج موجود مسبقا",
+  "ItemNotFound": ".فشل ايجاد العنصر",
+  "Unauthorize": ".لا تملك صلاحية",
+  "ErrorBarcoding": "",
+  "GenerateBarCodeError": ""
 }

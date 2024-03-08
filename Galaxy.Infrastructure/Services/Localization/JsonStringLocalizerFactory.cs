@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 
-namespace Pharamcy.Infrastructure.Services.Localization
+namespace Galaxy.Infrastructure.Services.Localization
 {
     public class JsonStringLocalizerFactory : IStringLocalizerFactory
     {

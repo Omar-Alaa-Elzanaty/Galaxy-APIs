@@ -2,6 +2,7 @@
 
 namespace Galaxy.Presentation.Controller
 {
+    
     public class ApiControllerBase : ControllerBase
     {
 

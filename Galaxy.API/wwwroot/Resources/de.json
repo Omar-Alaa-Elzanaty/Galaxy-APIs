@@ -1,3 +1,11 @@
 {
-
+  "Success": "Erfolgreiche Operation.",
+  "InvalidLogin": "Der Benutzername oder das Passwort ist falsch",
+  "SupplierExist": "Lieferant existiert bereits.",
+  "InvalidReqeust": "Ungültige Anfrage!!! Bitte versuche es erneut!",
+  "ProductExist": "Produkt existiert bereits.",
+  "ItemNotFound": "Artikel wurde nicht gefunden.",
+  "Unauthorize": "Nicht autorisieren.",
+  "ErrorBarcoding": "",
+  "GenerateBarCodeError": ""
 }

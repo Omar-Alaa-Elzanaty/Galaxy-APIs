@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galaxy.API", "Galaxy.API\Galaxy.API.csproj", "{FD72F8F9-AE0B-4651-90D3-E33198EF5E11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galaxy.API", "Galaxy.API\Galaxy.API.csproj", "{FD72F8F9-AE0B-4651-90D3-E33198EF5E11}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{BE8C6224-7ED2-4213-9BAD-4127C8A6718C}"
 EndProject
@@ -15,15 +15,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{D53DD334-CE84-4A2B-A801-DB0551830A06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galaxy.Presentation", "Galaxy.Presentation\Galaxy.Presentation.csproj", "{DE4DBB01-C4C9-4D5E-85B3-8D0541F271B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galaxy.Presentation", "Galaxy.Presentation\Galaxy.Presentation.csproj", "{DE4DBB01-C4C9-4D5E-85B3-8D0541F271B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galaxy.Infrastructure", "Galaxy.Infrastructure\Galaxy.Infrastructure.csproj", "{7DD9777B-2A1F-4F87-B108-770C28E0C264}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galaxy.Infrastructure", "Galaxy.Infrastructure\Galaxy.Infrastructure.csproj", "{7DD9777B-2A1F-4F87-B108-770C28E0C264}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galaxy.Presistance", "Galaxy.Presistance\Galaxy.Presistance.csproj", "{E1D4A859-23E4-401C-96BA-DB0017475977}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galaxy.Presistance", "Galaxy.Presistance\Galaxy.Presistance.csproj", "{E1D4A859-23E4-401C-96BA-DB0017475977}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galaxy.Application", "Galaxy.Application\Galaxy.Application.csproj", "{8799E9CE-9739-40AF-83A0-8D026E83891F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galaxy.Application", "Galaxy.Application\Galaxy.Application.csproj", "{8799E9CE-9739-40AF-83A0-8D026E83891F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galaxy.Domain", "Galaxy.Domain\Galaxy.Domain.csproj", "{E493D37F-2A35-4250-8101-7850FDC855C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galaxy.Domain", "Galaxy.Domain\Galaxy.Domain.csproj", "{E493D37F-2A35-4250-8101-7850FDC855C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{41F9FD62-992A-48E8-8D5F-A03B6CCDE11A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galaxy.Shared", "Galaxy.Shared\Galaxy.Shared.csproj", "{B7C4E366-B96F-47C1-BDF1-771FCB7B59E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +59,10 @@ Global
 		{E493D37F-2A35-4250-8101-7850FDC855C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E493D37F-2A35-4250-8101-7850FDC855C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E493D37F-2A35-4250-8101-7850FDC855C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7C4E366-B96F-47C1-BDF1-771FCB7B59E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7C4E366-B96F-47C1-BDF1-771FCB7B59E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7C4E366-B96F-47C1-BDF1-771FCB7B59E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7C4E366-B96F-47C1-BDF1-771FCB7B59E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +77,8 @@ Global
 		{E1D4A859-23E4-401C-96BA-DB0017475977} = {165C54F5-28C1-47E4-8D49-3D6FD6F9E4EF}
 		{8799E9CE-9739-40AF-83A0-8D026E83891F} = {935B8472-BE5A-412F-831B-ED4EA31C9951}
 		{E493D37F-2A35-4250-8101-7850FDC855C1} = {935B8472-BE5A-412F-831B-ED4EA31C9951}
+		{41F9FD62-992A-48E8-8D5F-A03B6CCDE11A} = {BE8C6224-7ED2-4213-9BAD-4127C8A6718C}
+		{B7C4E366-B96F-47C1-BDF1-771FCB7B59E9} = {41F9FD62-992A-48E8-8D5F-A03B6CCDE11A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DD45FD5-21CC-4764-8248-8514B694D5FC}
