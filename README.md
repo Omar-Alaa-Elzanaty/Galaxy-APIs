@@ -1,6 +1,6 @@
 # Galaxy
 
-Galaxy Api is a collection of some endpoints to handle shopping, and selling mobile stores.
+Galaxy Api is a collection of some endpoints to handle shopping, and selling operations for mobile stores.
 This project is based on a real freelance job I did for a customer in Deutschland. The project was
 built depending on clean architecture to facilitate maintenance and extendability for features in the future.
 With a good UI and front end, I think this project will be helpful for any mobile store. The Media folders upload to the same
