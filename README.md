@@ -9,7 +9,7 @@ System response can return in Arabic or Deutsch relying on the header of your re
 
 ## Stored procedure
 
-I needed to create a stored procedure to  delegate barcode generation for all items to keep on performance for the backend server.
+I needed to create a stored procedure to  delegate barcode generation for all items for the database server to keep the performance of the backend server.
 
 > [!NOTE]
 > We can use Ado instead of the stored procedure and entity framework but I still searching for a way to do that as it will be a faster solution. :loudspeaker:
@@ -48,7 +48,7 @@ The first four digits represent the year
 * Display the Product with more details
 * Add another account to the system
 * System comes with default account
-  * UserName: SystemAdmin
+  * Username: SystemAdmin
   * Password: 123@Abc
 * Auto Generation barcode for each item comes from  suppliers
 * Tracking Low inventory for each product to be aware of amounts.
