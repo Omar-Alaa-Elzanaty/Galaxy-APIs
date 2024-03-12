@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Galaxy.Application.Features.CustomerInvoices.Queries.GetAllCustomerInvoiceByCustomerId
+﻿namespace Galaxy.Application.Features.CustomerInvoices.Queries.GetAllCustomerInvoiceByCustomerId
 {
     public class GetAllcustomerInvoiceByCustomerIdQueryDto
     {
@@ -12,6 +6,10 @@ namespace Galaxy.Application.Features.CustomerInvoices.Queries.GetAllCustomerInv
         public double Total { get; set; }
         public DateTime CreationDate { get; set; }
     }
-
+    public enum GetAllCustomerInvoiceByCustomerIdColumn
+    {
+        Total = 1,
+        CreationDate = 2
+    }
 
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Galaxy.Application.Features.Customers.Querires.GetAllCustomers
+﻿namespace Galaxy.Application.Features.Customers.Querires.GetAllCustomers
 {
     public class GetAllCustomersQueryDto
     {
@@ -12,5 +6,11 @@ namespace Galaxy.Application.Features.Customers.Querires.GetAllCustomers
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime CreationDate { get; set; }
+    }
+    public enum CustomerColumnName
+    {
+        Name = 1,
+        PhoneNumber = 2,
+        CreationDate = 3
     }
 }

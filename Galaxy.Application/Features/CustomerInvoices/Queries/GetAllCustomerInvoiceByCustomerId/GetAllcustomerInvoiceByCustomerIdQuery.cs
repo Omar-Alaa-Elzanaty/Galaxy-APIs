@@ -1,46 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Galaxy.Application.Extention;
 using Galaxy.Application.Interfaces.Repositories;
 using Galaxy.Domain.Models;
 using Galaxy.Shared;
-using MapsterMapper;
+using Mapster;
 using MediatR;
+using SBS.Recruitment.Shared;
 
 namespace Galaxy.Application.Features.CustomerInvoices.Queries.GetAllCustomerInvoiceByCustomerId
 {
-    public record GetAllcustomerInvoiceByCustomerIdQuery : IRequest<Response>
+    public record GetAllcustomerInvoiceByCustomerIdQuery : PaginatedRequest, IRequest<PaginatedResponse<GetAllcustomerInvoiceByCustomerIdQueryDto>>
     {
         public int Id { get; set; }
 
-        public GetAllcustomerInvoiceByCustomerIdQuery(int id)
-        {
-            Id = id;
-        }
+        public GetAllCustomerInvoiceByCustomerIdColumn GetAllCustomerInvoiceByCustomerIdColumn { get; set; }
     }
-    public class GetAllcustomerInvoiceQueryHandler : IRequestHandler<GetAllcustomerInvoiceByCustomerIdQuery, Response>
+
+    internal class GetAllcustomerInvoiceQueryHandler : IRequestHandler<GetAllcustomerInvoiceByCustomerIdQuery, PaginatedResponse<GetAllcustomerInvoiceByCustomerIdQueryDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
         public GetAllcustomerInvoiceQueryHandler(
-            IUnitOfWork unitOfWork,
-            IMapper mapper)
+            IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
-        public async Task<Response> Handle(GetAllcustomerInvoiceByCustomerIdQuery query, CancellationToken cancellationToken)
+        public async Task<PaginatedResponse<GetAllcustomerInvoiceByCustomerIdQueryDto>> Handle(GetAllcustomerInvoiceByCustomerIdQuery query, CancellationToken cancellationToken)
         {
-            var entities = _unitOfWork.Repository<CustomerInvoice>()
-                           .GetOnCriteriaAsync(x => x.CustomerId == query.Id, x => x)
-                           .Result.ToList();
+            var customerInvoices = _unitOfWork.Repository<CustomerInvoice>()
+                           .Entities().Where(x => x.CustomerId == query.Id);
 
-            var customerInovices = _mapper.Map<List<GetAllcustomerInvoiceByCustomerIdQueryDto>>(entities);
+            switch (query.GetAllCustomerInvoiceByCustomerIdColumn)
+            {
+                case GetAllCustomerInvoiceByCustomerIdColumn.Total:
+                    customerInvoices = customerInvoices.OrderBy(x => x.Total);
+                    break;
 
-            return await Response.SuccessAsync(customerInovices);
+                case GetAllCustomerInvoiceByCustomerIdColumn.CreationDate:
+                    customerInvoices = customerInvoices.OrderBy(x => x.CreationDate);
+                    break;
+            }
+
+            return await customerInvoices.ProjectToType<GetAllcustomerInvoiceByCustomerIdQueryDto>()
+                         .ToPaginatedListAsync(query.PageNumber, query.PageSize, cancellationToken);
+
         }
+
     }
 }

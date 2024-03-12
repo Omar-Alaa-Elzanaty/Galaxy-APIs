@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
+using SBS.Recruitment.Shared;
 
 namespace Galaxy.Presentation.Controller
 {
@@ -27,10 +28,10 @@ namespace Galaxy.Presentation.Controller
             return Ok(await _mediator.Send(command));
         }
 
-        [HttpGet("customerInvoices/{customerId}")]
-        public async Task<ActionResult<List<GetAllcustomerInvoiceByCustomerIdQuery>>> GetAllByCustomerId(int customerId)
+        [HttpGet("customerInvoices")]
+        public async Task<ActionResult<PaginatedResponse<GetAllcustomerInvoiceByCustomerIdQueryDto>>> GetAllByCustomerId([FromQuery] GetAllcustomerInvoiceByCustomerIdQuery query)
         {
-            return Ok(await _mediator.Send(new GetAllcustomerInvoiceByCustomerIdQuery(customerId)));
+            return Ok(await _mediator.Send(query));
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<GetCustomerInvoiceByIdQuery>> Get(int id)

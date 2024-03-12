@@ -7,10 +7,10 @@ using Galaxy.Application.Features.Products.Queries.GetProductById;
 using Galaxy.Application.Features.Products.Queries.GetProductInDetails;
 using Galaxy.Application.Features.Products.Queries.GetProductsNames;
 using Galaxy.Domain.Constants;
-using Galaxy.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SBS.Recruitment.Shared;
 
 namespace Galaxy.Presentation.Controller
 {
@@ -33,9 +33,9 @@ namespace Galaxy.Presentation.Controller
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetAllProductsQueryDto>>> GetAll()
+        public async Task<ActionResult<PaginatedResponse<GetAllProductsQueryDto>>> GetAll([FromQuery] GetAllProductsQuery query)
         {
-            return Ok(await _mediator.Send(new GetAllProductsQuery()));
+            return Ok(await _mediator.Send(query));
         }
 
         [HttpGet("{id}")]
@@ -45,7 +45,7 @@ namespace Galaxy.Presentation.Controller
         }
 
         [HttpGet("barcode/{barCode}")]
-        public async Task<ActionResult<GetProductByBarCodeQueryDto>>GetProductByBarCode(string barCode)
+        public async Task<ActionResult<GetProductByBarCodeQueryDto>> GetProductByBarCode(string barCode)
         {
             return Ok(await _mediator.Send(new GetProductByBarCodeQuery(barCode)));
         }

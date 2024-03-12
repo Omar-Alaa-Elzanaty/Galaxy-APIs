@@ -14,4 +14,9 @@ namespace Galaxy.Application.Features.Suppliers.Queries.GetAllSuppliers
         public string ImageUrl { get; set;}
         public DateTime? LatestPurchase { get; set; }
     }
+    public enum GetAllSupplierColumn
+    {
+        Name=1,
+        LatestPurchase=2
+    }
 }

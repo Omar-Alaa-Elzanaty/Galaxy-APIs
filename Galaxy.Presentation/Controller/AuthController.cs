@@ -1,5 +1,6 @@
 ﻿using Galaxy.Application.Features.Auth.Login.LoginQueries;
 using Galaxy.Application.Features.Auth.SignUp.Command;
+using Galaxy.Application.Features.Auth.Users.GetUserInfo;
 using Galaxy.Domain.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -30,6 +31,13 @@ namespace Galaxy.Presentation.Controller
         public async Task<ActionResult<int>>CreateAccount([FromForm]SignUpCommand command)
         {
             return Ok(await _mediator.Send(command));
+        }
+
+        [HttpGet("UserInfo/{id}")]
+        [Authorize]
+        public async Task<ActionResult<GetUserInfoQueryDto>> GetUserInfo(string id)
+        {
+            return Ok(await _mediator.Send(new GetUserInfoQuery(id)));
         }
     }
 }

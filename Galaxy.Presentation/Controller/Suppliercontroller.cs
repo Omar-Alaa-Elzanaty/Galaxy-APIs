@@ -5,6 +5,7 @@ using Galaxy.Domain.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SBS.Recruitment.Shared;
 
 namespace Galaxy.Presentation.Controller
 {
@@ -27,15 +28,15 @@ namespace Galaxy.Presentation.Controller
         }
 
         [HttpGet]
-        public async Task<ActionResult<GetAllSupplierQueryDto>> GetAll()
+        public async Task<ActionResult<PaginatedResponse<GetAllSupplierQueryDto>>> GetAll([FromQuery] GetAllSupplierQuery query)
         {
-            return Ok(await _mediator.Send(new GetAllSupplierQuery()));
+            return Ok(await _mediator.Send(query));
         }
 
         [HttpGet("latestPurchases")]
-        public async Task<ActionResult<GetAllLatestPruchasesQueryDto>> GetallLatestPurchases()
+        public async Task<ActionResult<PaginatedResponse<GetAllLatestPruchasesQueryDto>>> GetallLatestPurchases([FromQuery] GetAllLatestSupplierPruchasesQuery query)
         {
-            return Ok(await _mediator.Send(new GetAllLatestSupplierPruchasesQuery()));
+            return Ok(await _mediator.Send(query));
         }
 
     }

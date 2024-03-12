@@ -1,5 +1,6 @@
 {
   "Success": ".عملية ناجحة",
+  "UserNotFound": ".فشل ايجاد المستخدم",
   "InvalidLogin": ".رقم المستخدم او كلمة السر غير صالح",
   "SupplierExist": ".المورد موجود مسبقا",
   "InvalidReqeust": ".طلب غير صحيح",

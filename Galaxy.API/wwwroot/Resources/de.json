@@ -1,5 +1,6 @@
 {
   "Success": "Erfolgreiche Operation.",
+  "UserNotFound": "Benutzer nicht gefunden",
   "InvalidLogin": "Der Benutzername oder das Passwort ist falsch",
   "SupplierExist": "Lieferant existiert bereits.",
   "InvalidReqeust": "Ungültige Anfrage!!! Bitte versuche es erneut!",

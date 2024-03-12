@@ -1,39 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Galaxy.Application.Extention;
 using Galaxy.Application.Interfaces.Repositories;
-using Galaxy.Application.Interfaces.Repositories.Suppliers;
 using Galaxy.Domain.Models;
 using Galaxy.Shared;
-using MapsterMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
+using SBS.Recruitment.Shared;
 
 namespace Galaxy.Application.Features.Suppliers.Queries.GetAllSuppliers
 {
-    public record GetAllSupplierQuery:IRequest<Response>;
+    public record GetAllSupplierQuery : PaginatedRequest, IRequest<PaginatedResponse<GetAllSupplierQueryDto>>
+    {
+        public GetAllSupplierColumn GetAllSupplierColumn { get; set; }
+    }
 
-    internal class GetAllSupplierQueryHandler : IRequestHandler<GetAllSupplierQuery, Response>
+    internal class GetAllSupplierQueryHandler : IRequestHandler<GetAllSupplierQuery, PaginatedResponse<GetAllSupplierQueryDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        private readonly ISupplierRepository _supplierRepository;
 
         public GetAllSupplierQueryHandler(
-            IUnitOfWork unitOfWork,
-            IMapper mapper,
-            ISupplierRepository supplierRepository)
+            IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
-            _supplierRepository = supplierRepository;
         }
 
-        public async Task<Response> Handle(GetAllSupplierQuery request, CancellationToken cancellationToken)
+        public async Task<PaginatedResponse<GetAllSupplierQueryDto>> Handle(GetAllSupplierQuery query, CancellationToken cancellationToken)
         {
-            var suppliers = _unitOfWork.Repository<Supplier>().Entities()
+            var suppliers = await _unitOfWork.Repository<Supplier>().Entities()
                            .Select(x => new GetAllSupplierQueryDto()
                            {
                                Id = x.Id,
@@ -41,12 +32,10 @@ namespace Galaxy.Application.Features.Suppliers.Queries.GetAllSuppliers
                                IdUrl = x.IdUrl,
                                ImageUrl = x.ImageUrl,
                                LatestPurchase = x.Invoices.OrderBy(x => x.CreationDate).FirstOrDefault()!.CreationDate
-                           });
+                           }).ToPaginatedListAsync(query.PageNumber, query.PageSize, cancellationToken);
 
 
-
-
-            return await Response.SuccessAsync(suppliers);
+            return suppliers;
         }
     }
 }
