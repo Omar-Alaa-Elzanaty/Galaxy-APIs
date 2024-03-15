@@ -1,0 +1,2705 @@
+{
+	"info": {
+		"_postman_id": "abe3ce0e-bf03-4e71-ba86-9d67dc369460",
+		"name": "Galaxy-Webiste",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33302570",
+		"_collection_link": "https://blue-trinity-954645.postman.co/workspace/Team-Workspace~f57bf0b0-9d26-4879-8405-b1196e0d976e/collection/33302570-abe3ce0e-bf03-4e71-ba86-9d67dc369460?action=share&source=collection_link&creator=33302570"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{Arabic}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"SystemAdmin\",\r\n    \"password\": \"123@Abc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUri}}/api/Auth/login",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "{{deutsch}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userName\": \"SystemAdmin\",\r\n    \"password\": \"123@Abc\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseUri}}/api/Auth/login",
+									"host": [
+										"{{BaseUri}}"
+									],
+									"path": [
+										"api",
+										"Auth",
+										"login"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Fail",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "{{deutsch}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userName\": \"SystemAdmin\",\r\n    \"password\": \"aavbc\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseUri}}/api/Auth/login",
+									"host": [
+										"{{BaseUri}}"
+									],
+									"path": [
+										"api",
+										"Auth",
+										"login"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "CreateAccount",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{Arabic}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "UserName",
+									"value": "Admin2",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "123@Abc",
+									"type": "text"
+								},
+								{
+									"key": "Name",
+									"value": "Admin",
+									"type": "text"
+								},
+								{
+									"key": "PhoneNumber",
+									"value": "01121212931",
+									"type": "text"
+								},
+								{
+									"key": "Gender",
+									"value": "1",
+									"description": "Male=0   |  Female=1 ",
+									"type": "text"
+								},
+								{
+									"key": "Email",
+									"value": "admin2@test.com",
+									"type": "text"
+								},
+								{
+									"key": "EmployeeId",
+									"value": "121",
+									"type": "text"
+								},
+								{
+									"key": "Role",
+									"value": "Owner",
+									"description": "Owner/ Manager / Sales",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BaseUri}}/api/Auth/createAccount",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Auth",
+								"createAccount"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "{{Arabic}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "UserName",
+											"value": "Admin",
+											"type": "text"
+										},
+										{
+											"key": "Password",
+											"value": "123@Abc",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "Admin",
+											"type": "text"
+										},
+										{
+											"key": "PhoneNumber",
+											"value": "01111021212",
+											"type": "text"
+										},
+										{
+											"key": "Gender",
+											"value": "0",
+											"description": "Male=0   |  Female=1 ",
+											"type": "text"
+										},
+										{
+											"key": "Email",
+											"value": "admin@test.com",
+											"type": "text"
+										},
+										{
+											"key": "EmployeeId",
+											"value": "121",
+											"type": "text"
+										},
+										{
+											"key": "Role",
+											"value": "Owner",
+											"description": "Owner/ Manager / Sales",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseUri}}/api/Auth/createAccount",
+									"host": [
+										"{{BaseUri}}"
+									],
+									"path": [
+										"api",
+										"Auth",
+										"createAccount"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "user name failure",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "{{Arabic}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "UserName",
+											"value": "123",
+											"type": "text"
+										},
+										{
+											"key": "Password",
+											"value": "123@Abc",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "Admin",
+											"type": "text"
+										},
+										{
+											"key": "PhoneNumber",
+											"value": "01111021212",
+											"type": "text"
+										},
+										{
+											"key": "Gender",
+											"value": "0",
+											"description": "Male=0   |  Female=1 ",
+											"type": "text"
+										},
+										{
+											"key": "Email",
+											"value": "admin@test.com",
+											"type": "text"
+										},
+										{
+											"key": "EmployeeId",
+											"value": "121",
+											"type": "text"
+										},
+										{
+											"key": "Role",
+											"value": "Owner",
+											"description": "Owner/ Manager / Sales",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseUri}}/api/Auth/createAccount",
+									"host": [
+										"{{BaseUri}}"
+									],
+									"path": [
+										"api",
+										"Auth",
+										"createAccount"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "UserName exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "{{Arabic}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "UserName",
+											"value": "Admin",
+											"type": "text"
+										},
+										{
+											"key": "Password",
+											"value": "123@Abc",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "Admin",
+											"type": "text"
+										},
+										{
+											"key": "PhoneNumber",
+											"value": "01111021212",
+											"type": "text"
+										},
+										{
+											"key": "Gender",
+											"value": "0",
+											"description": "Male=0   |  Female=1 ",
+											"type": "text"
+										},
+										{
+											"key": "Email",
+											"value": "admin@test.com",
+											"type": "text"
+										},
+										{
+											"key": "EmployeeId",
+											"value": "121",
+											"type": "text"
+										},
+										{
+											"key": "Role",
+											"value": "Owner",
+											"description": "Owner/ Manager / Sales",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseUri}}/api/Auth/createAccount",
+									"host": [
+										"{{BaseUri}}"
+									],
+									"path": [
+										"api",
+										"Auth",
+										"createAccount"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 14:56:18 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"isSuccess\": false,\n    \"data\": null,\n    \"message\": \"اسم المستخدم موجود مسبقا\"\n}"
+						},
+						{
+							"name": "role  not exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "{{Arabic}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "UserName",
+											"value": "Admin",
+											"type": "text"
+										},
+										{
+											"key": "Password",
+											"value": "123@Abc",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "Admin",
+											"type": "text"
+										},
+										{
+											"key": "PhoneNumber",
+											"value": "01111021212",
+											"type": "text"
+										},
+										{
+											"key": "Gender",
+											"value": "0",
+											"description": "Male=0   |  Female=1 ",
+											"type": "text"
+										},
+										{
+											"key": "Email",
+											"value": "admin@test.com",
+											"type": "text"
+										},
+										{
+											"key": "EmployeeId",
+											"value": "121",
+											"type": "text"
+										},
+										{
+											"key": "Role",
+											"value": "Owner",
+											"description": "Owner/ Manager / Sales",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseUri}}/api/Auth/createAccount",
+									"host": [
+										"{{BaseUri}}"
+									],
+									"path": [
+										"api",
+										"Auth",
+										"createAccount"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 14:56:45 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"isSuccess\": false,\n    \"data\": null,\n    \"message\": \"اسم المستخدم موجود مسبقا\"\n}"
+						},
+						{
+							"name": "email exits",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "{{Arabic}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "UserName",
+											"value": "Admin111",
+											"type": "text"
+										},
+										{
+											"key": "Password",
+											"value": "123@Abc",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "Admin",
+											"type": "text"
+										},
+										{
+											"key": "PhoneNumber",
+											"value": "01111021212",
+											"type": "text"
+										},
+										{
+											"key": "Gender",
+											"value": "0",
+											"description": "Male=0   |  Female=1 ",
+											"type": "text"
+										},
+										{
+											"key": "Email",
+											"value": "admin@test.com",
+											"type": "text"
+										},
+										{
+											"key": "EmployeeId",
+											"value": "121",
+											"type": "text"
+										},
+										{
+											"key": "Role",
+											"value": "Owner",
+											"description": "Owner/ Manager / Sales",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseUri}}/api/Auth/createAccount",
+									"host": [
+										"{{BaseUri}}"
+									],
+									"path": [
+										"api",
+										"Auth",
+										"createAccount"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 14:58:20 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"isSuccess\": false,\n    \"data\": null,\n    \"message\": \"الايميل مستخدم من قبل\"\n}"
+						},
+						{
+							"name": "phone number exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "{{Arabic}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "UserName",
+											"value": "Admin021",
+											"type": "text"
+										},
+										{
+											"key": "Password",
+											"value": "123@Abc",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "Admin",
+											"type": "text"
+										},
+										{
+											"key": "PhoneNumber",
+											"value": "01111021212",
+											"type": "text"
+										},
+										{
+											"key": "Gender",
+											"value": "0",
+											"description": "Male=0   |  Female=1 ",
+											"type": "text"
+										},
+										{
+											"key": "Email",
+											"value": "admin021@test.com",
+											"type": "text"
+										},
+										{
+											"key": "EmployeeId",
+											"value": "121",
+											"type": "text"
+										},
+										{
+											"key": "Role",
+											"value": "Owner",
+											"description": "Owner/ Manager / Sales",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseUri}}/api/Auth/createAccount",
+									"host": [
+										"{{BaseUri}}"
+									],
+									"path": [
+										"api",
+										"Auth",
+										"createAccount"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 14:59:41 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"isSuccess\": false,\n    \"data\": null,\n    \"message\": \"رقم الهاتف موجود مسبقا\"\n}"
+						},
+						{
+							"name": "CreateAccount",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "{{Arabic}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "UserName",
+											"value": "123",
+											"type": "text"
+										},
+										{
+											"key": "Password",
+											"value": "123@Abc",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "Admin",
+											"type": "text"
+										},
+										{
+											"key": "PhoneNumber",
+											"value": "01111021001",
+											"type": "text"
+										},
+										{
+											"key": "Gender",
+											"value": "0",
+											"description": "Male=0   |  Female=1 ",
+											"type": "text"
+										},
+										{
+											"key": "Email",
+											"value": "admin000@test.com",
+											"type": "text"
+										},
+										{
+											"key": "EmployeeId",
+											"value": "121",
+											"type": "text"
+										},
+										{
+											"key": "Role",
+											"value": "Owner",
+											"description": "Owner/ Manager / Sales",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseUri}}/api/Auth/createAccount",
+									"host": [
+										"{{BaseUri}}"
+									],
+									"path": [
+										"api",
+										"Auth",
+										"createAccount"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 14 Mar 2024 15:01:34 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"isSuccess\": true,\n    \"data\": null,\n    \"message\": \"f22d7226-d24b-4112-b1b1-b2bbd382acf5\"\n}"
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "password",
+						"value": "Teft4122001!",
+						"type": "string"
+					},
+					{
+						"key": "username",
+						"value": "galaxywebapp1-001",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{Arabic}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUri}}/api/Customer?ColumnName&PageNumber&PageSize&KeyWord",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Customer"
+							],
+							"query": [
+								{
+									"key": "ColumnName",
+									"value": null,
+									"description": "Name=1, \nPhonenumber=2,\nCreationDate =3"
+								},
+								{
+									"key": "PageNumber",
+									"value": null
+								},
+								{
+									"key": "PageSize",
+									"value": null
+								},
+								{
+									"key": "KeyWord",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "{{Arabic}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BaseUri}}/api/Customer?ColumnName=1&PageNumber=1&PageSize=10&KeyWord",
+									"host": [
+										"{{BaseUri}}"
+									],
+									"path": [
+										"api",
+										"Customer"
+									],
+									"query": [
+										{
+											"key": "ColumnName",
+											"value": "1",
+											"description": "Name=1, \nPhonenumber=2,\nCreationDate =3"
+										},
+										{
+											"key": "PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "PageSize",
+											"value": "10"
+										},
+										{
+											"key": "KeyWord",
+											"value": null
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 12 Mar 2024 16:27:17 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [],\n    \"currentPage\": 1,\n    \"totalPages\": 0,\n    \"totalCount\": 0,\n    \"pageSize\": 10,\n    \"hasPreviousPage\": false,\n    \"hasNextPage\": false,\n    \"statusCode\": 200,\n    \"isSuccess\": true,\n    \"message\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM5MzNkMmFkLTEwNWEtNDczNC04NmQxLTE3MTc3MDFhNDk1NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJTeXN0ZW1BZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik93bmVyIiwiZXhwIjoxNzEwMDEwNTQ0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyOTQvIiwiYXVkIjoiR2FsYXh5LVdlYlNpdGUifQ.jWQznYdHFMDIjFSgqAM75VosoG1IIZWPlnRmLrWPzLU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUri}}/api/Customer/1",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Customer",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get by id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "{{deutsch}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BaseUri}}/api/Customer/1",
+									"host": [
+										"{{BaseUri}}"
+									],
+									"path": [
+										"api",
+										"Customer",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 10 Mar 2024 21:04:54 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"isSuccess\": false,\n    \"data\": null,\n    \"message\": \"\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM5MzNkMmFkLTEwNWEtNDczNC04NmQxLTE3MTc3MDFhNDk1NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJTeXN0ZW1BZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik93bmVyIiwiZXhwIjoxNzEwMDEwNTQ0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyOTQvIiwiYXVkIjoiR2FsYXh5LVdlYlNpdGUifQ.jWQznYdHFMDIjFSgqAM75VosoG1IIZWPlnRmLrWPzLU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Name",
+									"value": "Iphone 14 PRO Max",
+									"type": "text"
+								},
+								{
+									"key": "ImageFile",
+									"type": "file",
+									"src": "/C:/Users/Omar/Desktop/Iphone14ProMax.jpg"
+								},
+								{
+									"key": "Rating",
+									"value": "10",
+									"description": "1 t0 5",
+									"type": "text"
+								},
+								{
+									"key": "MinimumInventoryIn",
+									"value": "100",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BaseUri}}/api/Product",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Product"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "{{deutsch}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Name",
+											"value": "Iphone 14 PRO Max",
+											"type": "text"
+										},
+										{
+											"key": "ImageFile",
+											"type": "file",
+											"src": "/C:/Users/moham/Downloads/download.jpg"
+										},
+										{
+											"key": "Rating",
+											"value": "10",
+											"description": "1 t0 5",
+											"type": "text"
+										},
+										{
+											"key": "MinimumInventoryIn",
+											"value": "100",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseUri}}/api/Product",
+									"host": [
+										"{{BaseUri}}"
+									],
+									"path": [
+										"api",
+										"Product"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 12 Mar 2024 16:28:57 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"isSuccess\": true,\n    \"data\": 1,\n    \"message\": \"\"\n}"
+						},
+						{
+							"name": "Create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "{{Arabic}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Name",
+											"value": "Iphone 14 PRO Max0",
+											"type": "text"
+										},
+										{
+											"key": "ImageFile",
+											"type": "file",
+											"src": "/C:/Users/moham/Downloads/download.jpg"
+										},
+										{
+											"key": "Rating",
+											"value": "10",
+											"description": "1 t0 5",
+											"type": "text"
+										},
+										{
+											"key": "MinimumInventoryIn",
+											"value": "100",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseUri}}/api/Product",
+									"host": [
+										"{{BaseUri}}"
+									],
+									"path": [
+										"api",
+										"Product"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 12 Mar 2024 16:29:52 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 200,\n    \"isSuccess\": true,\n    \"data\": 2,\n    \"message\": \"\"\n}"
+						},
+						{
+							"name": "Create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "{{Arabic}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Name",
+											"value": "Iphone 14 PRO Max0",
+											"type": "text"
+										},
+										{
+											"key": "ImageFile",
+											"type": "file",
+											"src": "/C:/Users/moham/Downloads/download.jpg"
+										},
+										{
+											"key": "Rating",
+											"value": "10",
+											"description": "1 t0 5",
+											"type": "text"
+										},
+										{
+											"key": "MinimumInventoryIn",
+											"value": "100",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseUri}}/api/Product",
+									"host": [
+										"{{BaseUri}}"
+									],
+									"path": [
+										"api",
+										"Product"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 12 Mar 2024 16:30:02 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"isSuccess\": false,\n    \"data\": null,\n    \"message\": \".المنتج موجود مسبقا\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Should send also in route",
+									"type": "text"
+								},
+								{
+									"key": "Name",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "ImageFile",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "Rating",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "LowInventoryIn",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BaseUri}}/api/Product/1",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Product",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "{{Arabic}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "",
+											"description": "Should send also in route",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "ImageFile",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "Rating",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "LowInventoryIn",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseUri}}/api/Product/1",
+									"host": [
+										"{{BaseUri}}"
+									],
+									"path": [
+										"api",
+										"Product",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "WWW-Authenticate",
+									"value": "Bearer"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 12 Mar 2024 16:32:53 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 401,\n    \"isSuccess\": false,\n    \"data\": null,\n    \"message\": \".لا تملك صلاحية\"\n}"
+						},
+						{
+							"name": "Update",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "{{Arabic}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "",
+											"description": "Should send also in route",
+											"type": "text"
+										},
+										{
+											"key": "Name",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "ImageFile",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "Rating",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "LowInventoryIn",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseUri}}/api/Product/1",
+									"host": [
+										"{{BaseUri}}"
+									],
+									"path": [
+										"api",
+										"Product",
+										"1"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 12 Mar 2024 16:34:43 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc9110#section-15.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"errors\": {\n        \"id\": [\n            \"The value '' is invalid.\"\n        ],\n        \"Name\": [\n            \"The Name field is required.\"\n        ],\n        \"Rating\": [\n            \"The value '' is invalid.\"\n        ],\n        \"ImageFile\": [\n            \"The ImageFile field is required.\"\n        ],\n        \"LowInventoryIn\": [\n            \"The value '' is invalid.\"\n        ]\n    },\n    \"traceId\": \"00-f311b5210558b16befdedf740612df09-f1ee40ef7f787d40-00\"\n}"
+						},
+						{
+							"name": "Update",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "{{Arabic}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "",
+											"description": "Should send also in route",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "Name",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "ImageFile",
+											"type": "file",
+											"src": [],
+											"disabled": true
+										},
+										{
+											"key": "Rating",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "LowInventoryIn",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BaseUri}}/api/Product/1",
+									"host": [
+										"{{BaseUri}}"
+									],
+									"path": [
+										"api",
+										"Product",
+										"1"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "ASP.NET"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 12 Mar 2024 16:35:46 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc9110#section-15.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"errors\": {\n        \"Name\": [\n            \"The Name field is required.\"\n        ],\n        \"ImageFile\": [\n            \"The ImageFile field is required.\"\n        ]\n    },\n    \"traceId\": \"00-4da5e032c8cc32b9cab6d0e500366445-ac630cd99bf5308c-00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM5MzNkMmFkLTEwNWEtNDczNC04NmQxLTE3MTc3MDFhNDk1NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJTeXN0ZW1BZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik93bmVyIiwiZXhwIjoxNzEwMDEwNTQ0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyOTQvIiwiYXVkIjoiR2FsYXh5LVdlYlNpdGUifQ.jWQznYdHFMDIjFSgqAM75VosoG1IIZWPlnRmLrWPzLU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUri}}/api/Product?ProductColumnName=last modified&KeyWord=100&PageNumber=2&PageSize=",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Product"
+							],
+							"query": [
+								{
+									"key": "ProductColumnName",
+									"value": "last modified",
+									"description": "Name =1 ,ProfitRatio =2"
+								},
+								{
+									"key": "KeyWord",
+									"value": "100"
+								},
+								{
+									"key": "PageNumber",
+									"value": "2"
+								},
+								{
+									"key": "PageSize",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product in details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM5MzNkMmFkLTEwNWEtNDczNC04NmQxLTE3MTc3MDFhNDk1NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJTeXN0ZW1BZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik93bmVyIiwiZXhwIjoxNzEwMDEwNTQ0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyOTQvIiwiYXVkIjoiR2FsYXh5LVdlYlNpdGUifQ.jWQznYdHFMDIjFSgqAM75VosoG1IIZWPlnRmLrWPzLU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUri}}/api/Product/productInDetails/2",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Product",
+								"productInDetails",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ProductsNames",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM5MzNkMmFkLTEwNWEtNDczNC04NmQxLTE3MTc3MDFhNDk1NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJTeXN0ZW1BZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik93bmVyIiwiZXhwIjoxNzEwMDEwNTQ0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyOTQvIiwiYXVkIjoiR2FsYXh5LVdlYlNpdGUifQ.jWQznYdHFMDIjFSgqAM75VosoG1IIZWPlnRmLrWPzLU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUri}}/api/Product/getProductsName",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Product",
+								"getProductsName"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by barcode",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM5MzNkMmFkLTEwNWEtNDczNC04NmQxLTE3MTc3MDFhNDk1NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJTeXN0ZW1BZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik93bmVyIiwiZXhwIjoxNzEwMDEwNTQ0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyOTQvIiwiYXVkIjoiR2FsYXh5LVdlYlNpdGUifQ.jWQznYdHFMDIjFSgqAM75VosoG1IIZWPlnRmLrWPzLU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUri}}/api/Product/barcode/0024000100000",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Product",
+								"barcode",
+								"0024000100000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUri}}/api/Product/1",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM5MzNkMmFkLTEwNWEtNDczNC04NmQxLTE3MTc3MDFhNDk1NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJTeXN0ZW1BZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik93bmVyIiwiZXhwIjoxNzEwMDEwNTQ0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyOTQvIiwiYXVkIjoiR2FsYXh5LVdlYlNpdGUifQ.jWQznYdHFMDIjFSgqAM75VosoG1IIZWPlnRmLrWPzLU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{Arabic}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUri}}/api/Product/2",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Product",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Store",
+			"item": [
+				{
+					"name": "Check Item by barcode",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM5MzNkMmFkLTEwNWEtNDczNC04NmQxLTE3MTc3MDFhNDk1NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJTeXN0ZW1BZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik93bmVyIiwiZXhwIjoxNzEwMDEwNTQ0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyOTQvIiwiYXVkIjoiR2FsYXh5LVdlYlNpdGUifQ.jWQznYdHFMDIjFSgqAM75VosoG1IIZWPlnRmLrWPzLU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{Arabic}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUri}}/api/Store/checkBarCode/0024000100000",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Store",
+								"checkBarCode",
+								"0024000100000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Products Place",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"isToStore\": true,\r\n  \"itemsBarCode\": [\r\n    \"string\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUri}}/api/Store/changeProductsPlace",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Store",
+								"changeProductsPlace"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Need to import",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM5MzNkMmFkLTEwNWEtNDczNC04NmQxLTE3MTc3MDFhNDk1NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJTeXN0ZW1BZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik93bmVyIiwiZXhwIjoxNzA5OTU3MjA2LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyOTQvIiwiYXVkIjoiR2FsYXh5LVdlYlNpdGUifQ.Ju-Dly9YourjDkeMisVKnRcLppLw83Zkr22yP3VzAq4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUri}}/api/Store/needToImport",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Store",
+								"needToImport"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Supplier",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM5MzNkMmFkLTEwNWEtNDczNC04NmQxLTE3MTc3MDFhNDk1NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJTeXN0ZW1BZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik93bmVyIiwiZXhwIjoxNzA5ODg3ODE3LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyOTQvIiwiYXVkIjoiR2FsYXh5LVdlYlNpdGUifQ.rbpusgt5je_Y7oGzHb7BIBbLP3SgRZO2Bb5XFSucuf0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Name",
+									"value": "omar",
+									"type": "text"
+								},
+								{
+									"key": "ImageFile",
+									"type": "file",
+									"src": "/C:/Users/Omar/Desktop/1641736221461.jpg"
+								},
+								{
+									"key": "IdFile",
+									"type": "file",
+									"src": "/C:/Users/Omar/Desktop/1641736221461.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BaseUri}}/api/Supplier",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Supplier"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM5MzNkMmFkLTEwNWEtNDczNC04NmQxLTE3MTc3MDFhNDk1NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJTeXN0ZW1BZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik93bmVyIiwiZXhwIjoxNzEwMDEwNTQ0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyOTQvIiwiYXVkIjoiR2FsYXh5LVdlYlNpdGUifQ.jWQznYdHFMDIjFSgqAM75VosoG1IIZWPlnRmLrWPzLU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUri}}/api/Supplier?GetAllSupplierColumn&PageNumber&PageSize&KeyWord",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Supplier"
+							],
+							"query": [
+								{
+									"key": "GetAllSupplierColumn",
+									"value": null,
+									"description": "Name=1,\nLatestPurchase=2"
+								},
+								{
+									"key": "PageNumber",
+									"value": null
+								},
+								{
+									"key": "PageSize",
+									"value": null
+								},
+								{
+									"key": "KeyWord",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Latest-Purchases",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM5MzNkMmFkLTEwNWEtNDczNC04NmQxLTE3MTc3MDFhNDk1NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJTeXN0ZW1BZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik93bmVyIiwiZXhwIjoxNzEwMDEwNTQ0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyOTQvIiwiYXVkIjoiR2FsYXh5LVdlYlNpdGUifQ.jWQznYdHFMDIjFSgqAM75VosoG1IIZWPlnRmLrWPzLU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUri}}/api/Supplier/latestPurchases?LatestPurchasesColumn&PageNumber&PageSize&KeyWord",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Supplier",
+								"latestPurchases"
+							],
+							"query": [
+								{
+									"key": "LatestPurchasesColumn",
+									"value": null,
+									"description": "Name=1 ,\nTotalPay=2,\nDate=3"
+								},
+								{
+									"key": "PageNumber",
+									"value": null
+								},
+								{
+									"key": "PageSize",
+									"value": null
+								},
+								{
+									"key": "KeyWord",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddItems/add puchase",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM5MzNkMmFkLTEwNWEtNDczNC04NmQxLTE3MTc3MDFhNDk1NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJTeXN0ZW1BZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik93bmVyIiwiZXhwIjoxNzEwMjczMzQ5LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyOTQvIiwiYXVkIjoiR2FsYXh5LVdlYlNpdGUifQ._fsClDH5sjA3eRL4kbidWGBjs4rh8AQoaEk7WQ7KXnU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"supplierId\": 1,\r\n  \"totalInvoiceCost\": 125000,\r\n  \"importItems\": [\r\n    {\r\n      \"productId\": 2,\r\n      \"quantity\": 100,\r\n      \"totalCost\": 10000,\r\n      \"currentPurchase\": 12000,\r\n      \"sellingPrice\": 12500\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUri}}/api/Store",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Store"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CustomerInvoice",
+			"item": [
+				{
+					"name": "CustomerInvoice",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM5MzNkMmFkLTEwNWEtNDczNC04NmQxLTE3MTc3MDFhNDk1NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJTeXN0ZW1BZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik93bmVyIiwiZXhwIjoxNzA5ODg3ODE3LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyOTQvIiwiYXVkIjoiR2FsYXh5LVdlYlNpdGUifQ.rbpusgt5je_Y7oGzHb7BIBbLP3SgRZO2Bb5XFSucuf0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ // add a sele to customer\r\n  \"customerName\": \"Fady\",\r\n  \"phoneNumber\": \"01281519247\",\r\n  \"totalPrice\": 120000,\r\n  \"items\": [\r\n    {\r\n      \"productName\": \"Iphone12\",\r\n      \"itemPrice\": 12500,\r\n      \"totalPrice\": 12500,\r\n      \"barCodes\": [\r\n        \"0024000100000\"\r\n      ]\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUri}}/api/CustomerInvoice",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"CustomerInvoice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllByCustomerId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjM5MzNkMmFkLTEwNWEtNDczNC04NmQxLTE3MTc3MDFhNDk1NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJTeXN0ZW1BZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik93bmVyIiwiZXhwIjoxNzA5OTU3MjA2LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyOTQvIiwiYXVkIjoiR2FsYXh5LVdlYlNpdGUifQ.Ju-Dly9YourjDkeMisVKnRcLppLw83Zkr22yP3VzAq4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUri}}/api/CustomerInvoice?CustomerId&GetAllCustomerInvoiceByCustomerIdColumn&PageNumber&PageSize&KeyWord",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"CustomerInvoice"
+							],
+							"query": [
+								{
+									"key": "CustomerId",
+									"value": null
+								},
+								{
+									"key": "GetAllCustomerInvoiceByCustomerIdColumn",
+									"value": null,
+									"description": "Total=1,\nCreationDate=2"
+								},
+								{
+									"key": "PageNumber",
+									"value": null
+								},
+								{
+									"key": "PageSize",
+									"value": null,
+									"description": "1,2"
+								},
+								{
+									"key": "KeyWord",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CusomterInvoice By Id/ customer sales",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUri}}/api/CustomerInvoice/1",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"CustomerInvoice",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get User Info By id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{Arabic}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUri}}/api/Auth/userInfo/{id}",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"Auth",
+								"userInfo",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUri}}/api/User/users?Id=b67377bb-e77e-4152-a5c4-a98eb69239e1&Gander&PageNumber&PageSize&KeyWord",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"User",
+								"users"
+							],
+							"query": [
+								{
+									"key": "Id",
+									"value": "b67377bb-e77e-4152-a5c4-a98eb69239e1"
+								},
+								{
+									"key": "Gander",
+									"value": null,
+									"description": "Male=0 | Female=1"
+								},
+								{
+									"key": "PageNumber",
+									"value": null
+								},
+								{
+									"key": "PageSize",
+									"value": null
+								},
+								{
+									"key": "KeyWord",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUri}}/api/userPassword?userId&password",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"userPassword"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": null,
+									"description": "userid which need to know its password"
+								},
+								{
+									"key": "password",
+									"value": null,
+									"description": "Owner login password"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BaseUri}}/api/User/deleteAccount/{id}",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"User",
+								"deleteAccount",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit user role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"string\",\r\n  \"roleName\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUri}}/api/User/editUserRole",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"User",
+								"editUserRole"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateProfile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "{{deutsch}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"string\",\r\n  \"userName\": \"string\",\r\n  \"phoneNumber\": \"string\",\r\n  \"email\": \"string\",\r\n  \"employeeId\": \"string\",\r\n  \"name\": \"string\",\r\n  \"gander\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUri}}/api/UpdateProfile",
+							"host": [
+								"{{BaseUri}}"
+							],
+							"path": [
+								"api",
+								"UpdateProfile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseUri",
+			"value": "http://www.GalaxyStore.somee.com",
+			"type": "string"
+		},
+		{
+			"key": "deutsch",
+			"value": "de",
+			"type": "string"
+		},
+		{
+			"key": "Arabic",
+			"value": "ar",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImI2NzM3N2JiLWU3N2UtNDE1Mi1hNWM0LWE5OGViNjkyMzllMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJTeXN0ZW1BZG1pbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik93bmVyIiwiZXhwIjoxNzEwNTY3NjcxLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUyOTQvIiwiYXVkIjoiR2FsYXh5LVdlYlNpdGUifQ.jQ1mDZA5tmxLWvd7nha7jc8tgQzgGZjSylFbsD0VCZI"
+		}
+	]
+}
