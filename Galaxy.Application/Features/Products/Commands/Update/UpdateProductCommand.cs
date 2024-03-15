@@ -14,7 +14,7 @@ namespace Galaxy.Application.Features.Products.Commands.Update
     {
         public int id { get; set; }
         public string Name { get; set; }
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
         public int Rating { get; set; }
         public int LowInventoryIn { get; set; }
     }
@@ -22,15 +22,15 @@ namespace Galaxy.Application.Features.Products.Commands.Update
     internal class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Response>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IValidator<AddProductCommand> _validator;
-        private readonly IStringLocalizer<AddProductCommandHandler> _localization;
+        private readonly IValidator<UpdateProductCommand> _validator;
+        private readonly IStringLocalizer<UpdateProductCommandHandler> _localization;
         private readonly IMapper _mapper;
         private readonly IMediaService _mediaService;
 
         public UpdateProductCommandHandler(
             IUnitOfWork unitOfWork,
-            IValidator<AddProductCommand> validator,
-            IStringLocalizer<AddProductCommandHandler> localization,
+            IValidator<UpdateProductCommand> validator,
+            IStringLocalizer<UpdateProductCommandHandler> localization,
             IMapper mapper,
             IMediaService mediaService)
         {
@@ -43,6 +43,13 @@ namespace Galaxy.Application.Features.Products.Commands.Update
 
         public async Task<Response> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
+            var validationResult = await _validator.ValidateAsync(command);
+
+            if (!validationResult.IsValid)
+            {
+                return await Response.FailureAsync(validationResult.Errors.First().ErrorMessage);
+            }
+
             var entity = await _unitOfWork.Repository<Domain.Models.Product>().GetByIdAsync(command.id);
 
             if (entity is null)

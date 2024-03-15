@@ -2,6 +2,7 @@
 using Galaxy.Application.Features.Suppliers.Queries.GetAllLatestPruchases;
 using Galaxy.Application.Features.Suppliers.Queries.GetAllSuppliers;
 using Galaxy.Domain.Constants;
+using Galaxy.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,15 +28,15 @@ namespace Galaxy.Presentation.Controller
         }
 
         [HttpGet]
-        public async Task<ActionResult<GetAllSupplierQueryDto>> GetAll()
+        public async Task<ActionResult<PaginatedResponse<GetAllSupplierQueryDto>>> GetAll([FromQuery] GetAllSupplierQuery query)
         {
-            return Ok(await _mediator.Send(new GetAllSupplierQuery()));
+            return Ok(await _mediator.Send(query));
         }
 
         [HttpGet("latestPurchases")]
-        public async Task<ActionResult<GetAllLatestPruchasesQueryDto>> GetallLatestPurchases()
+        public async Task<ActionResult<PaginatedResponse<GetAllLatestPruchasesQueryDto>>> GetallLatestPurchases([FromQuery] GetAllLatestSupplierPruchasesQuery query)
         {
-            return Ok(await _mediator.Send(new GetAllLatestSupplierPruchasesQuery()));
+            return Ok(await _mediator.Send(query));
         }
 
     }

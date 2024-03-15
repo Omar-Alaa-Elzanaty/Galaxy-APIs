@@ -1,39 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Galaxy.Application.Extention;
 using Galaxy.Application.Interfaces.Repositories;
 using Galaxy.Domain.Models;
 using Galaxy.Shared;
+using Mapster;
 using MapsterMapper;
 using MediatR;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Galaxy.Application.Features.Customers.Querires.GetAllCustomers
 {
-    public record GetAllCustomersQuery:IRequest<Response>;
+    public record GetAllCustomersQuery : PaginatedRequest, IRequest<PaginatedResponse<GetAllCustomersQueryDto>>
+    {
+        public CustomerColumnName ColumnName { get; set; }
+    }
 
-    internal class GetAllCustomersQueryHandler : IRequestHandler<GetAllCustomersQuery, Response>
+    internal class GetAllCustomersQueryHandler : IRequestHandler<GetAllCustomersQuery, PaginatedResponse<GetAllCustomersQueryDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
         public GetAllCustomersQueryHandler(
-            IUnitOfWork unitOfWork,
-            IMapper mapper)
+            IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
-        public async Task<Response> Handle(GetAllCustomersQuery query, CancellationToken cancellationToken)
+        public async Task<PaginatedResponse<GetAllCustomersQueryDto>> Handle(GetAllCustomersQuery query, CancellationToken cancellationToken)
         {
-            var entities = await _unitOfWork.Repository<Customer>().GetAllAsync();
+            var entities = _unitOfWork.Repository<Customer>().Entities();
 
-            var customers = _mapper.Map<List<GetAllCustomersQueryDto>>(entities);
+            if (!query.KeyWord.IsNullOrEmpty())
+            {
+                entities = entities.Where(x => x.Name.Contains(query.KeyWord));
+            }
 
-            return await Response.SuccessAsync(customers);
+            switch (query.ColumnName)
+            {
+                case CustomerColumnName.Name:
+                    entities = entities.OrderBy(x => x.Name);
+                    break;
+
+                case CustomerColumnName.PhoneNumber:
+                    entities = entities.OrderBy(x => x.PhoneNumber);
+                    break;
+
+                case CustomerColumnName.CreationDate:
+                    entities = entities.OrderBy(x => x.CreationDate);
+                    break;
+            }
+
+            var customers = await entities.ProjectToType<GetAllCustomersQueryDto>()
+                            .ToPaginatedListAsync(query.PageNumber, query.PageSize, cancellationToken);
+
+            return customers;
         }
     }
 }

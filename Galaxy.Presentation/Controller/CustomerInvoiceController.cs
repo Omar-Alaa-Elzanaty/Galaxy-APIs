@@ -2,6 +2,7 @@
 using Galaxy.Application.Features.CustomerInvoices.Queries.GetAllCustomerInvoiceByCustomerId;
 using Galaxy.Application.Features.CustomerInvoices.Queries.GetCustomerInvoiceById;
 using Galaxy.Domain.Constants;
+using Galaxy.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,10 +28,10 @@ namespace Galaxy.Presentation.Controller
             return Ok(await _mediator.Send(command));
         }
 
-        [HttpGet("customerInvoices/{customerId}")]
-        public async Task<ActionResult<List<GetAllcustomerInvoiceByCustomerIdQuery>>> GetAllByCustomerId(int customerId)
+        [HttpGet]
+        public async Task<ActionResult<PaginatedResponse<GetAllcustomerInvoiceByCustomerIdQueryDto>>> GetAllByCustomerId([FromQuery] GetAllcustomerInvoiceByCustomerIdQuery query)
         {
-            return Ok(await _mediator.Send(new GetAllcustomerInvoiceByCustomerIdQuery(customerId)));
+            return Ok(await _mediator.Send(query));
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<GetCustomerInvoiceByIdQuery>> Get(int id)

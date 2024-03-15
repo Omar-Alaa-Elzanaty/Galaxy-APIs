@@ -1,11 +1,19 @@
 {
   "Success": "Erfolgreiche Operation.",
+  "FailedCreateAccount": "Het is niet gelukt om een account aan te maken",
+  "UserNotFound": "Benutzer nicht gefunden",
   "InvalidLogin": "Der Benutzername oder das Passwort ist falsch",
   "SupplierExist": "Lieferant existiert bereits.",
   "InvalidReqeust": "Ungültige Anfrage!!! Bitte versuche es erneut!",
   "ProductExist": "Produkt existiert bereits.",
   "ItemNotFound": "Artikel wurde nicht gefunden.",
   "Unauthorize": "Nicht autorisieren.",
+  "UserNameExist": "Benutzername existiert bereits",
+  "PhoneNumberExist": "Telefonnummer existiert bereits",
+  "RoleNotExist": "Rolle existiert nicht",
+  "EmailExist": "E-Mail ist bereits vorhanden",
+  "EmployeeIdExist": "Mitarbeiter-ID existiert bereits",
+  "PriceNotBeZero": "Der Preis sollte nicht null sein",
   "ErrorBarcoding": "",
   "GenerateBarCodeError": ""
 }

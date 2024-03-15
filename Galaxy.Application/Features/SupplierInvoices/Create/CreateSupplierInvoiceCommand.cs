@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using FluentValidation;
 using Galaxy.Application.Interfaces.BarCode;
 using Galaxy.Application.Interfaces.Repositories;
 using Galaxy.Domain.Models;
@@ -31,6 +32,7 @@ namespace Galaxy.Application.Features.SupplierInvoices.Create
         private readonly IBarCodeSerivce _barCodeSerivce;
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<CreateSupplierInvoiceHandler> _localization;
+        private readonly IValidator<CreateSupplierInvoiceCommand> _validator;
         private readonly IStockRepository _stockRepository;
         private readonly IConfiguration _config;
 
@@ -40,7 +42,8 @@ namespace Galaxy.Application.Features.SupplierInvoices.Create
             IMapper mapper,
             IStringLocalizer<CreateSupplierInvoiceHandler> localization,
             IConfiguration config,
-            IStockRepository stockRepository)
+            IStockRepository stockRepository,
+            IValidator<CreateSupplierInvoiceCommand> validator)
         {
             _unitOfWork = unitOfWork;
             _barCodeSerivce = barCodeSerivce;
@@ -48,17 +51,32 @@ namespace Galaxy.Application.Features.SupplierInvoices.Create
             _localization = localization;
             _config = config;
             _stockRepository = stockRepository;
+            _validator = validator;
         }
 
         public async Task<Response> Handle(CreateSupplierInvoiceCommand command, CancellationToken cancellationToken)
         {
+            var validationResult = await _validator.ValidateAsync(command);
+
+            if (!validationResult.IsValid)
+            { 
+                return await Response.FailureAsync(validationResult.Errors.First().ErrorMessage);
+            }
+            
+            foreach(var item in command.ImportItems)
+            {
+                if (item.CurrentPurchase == 0 || item.SellingPrice == 0)
+                {
+                    return await Response.FailureAsync(_localization["PriceNotBeZero"].Value);
+                }
+            }
+
             var newInovice = new SupplierInvoice()
             {
                 Items = new List<SupplierInvoiceItem>(),
                 TotalPay = command.TotalInvoiceCost,
                 SupplierId = command.SupplierId
             };
-
             var BarCodes = new List<ProductsBarCodesDto>();
 
             var yearCode = _barCodeSerivce.CompleteString((DateTime.Now.Year % 1000).ToString(), 4);
@@ -71,6 +89,7 @@ namespace Galaxy.Application.Features.SupplierInvoices.Create
 
             foreach (var item in command.ImportItems)
             {
+
                 var product = await _unitOfWork.Repository<Product>().GetByIdAsync(item.ProductId);
 
                 if (product is null)

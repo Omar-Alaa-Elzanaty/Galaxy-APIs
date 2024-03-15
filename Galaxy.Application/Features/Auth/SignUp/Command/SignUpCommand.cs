@@ -1,9 +1,9 @@
-﻿using Galaxy.Domain.Constants;
+﻿using FluentValidation;
+using Galaxy.Domain.Constants;
 using Galaxy.Domain.Identity;
 using Galaxy.Shared;
 using MapsterMapper;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -26,21 +26,31 @@ namespace Galaxy.Application.Features.Auth.SignUp.Command
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IStringLocalizer<SignUpCommandHandler> _localization;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IValidator<SignUpCommand> _validator;
         private readonly IMapper _mapper;
         public SignUpCommandHandler(
             UserManager<ApplicationUser> userManager,
             IStringLocalizer<SignUpCommandHandler> localization,
             RoleManager<IdentityRole> roleManager,
-            IMapper mapper)
+            IMapper mapper,
+            IValidator<SignUpCommand> validator)
         {
             _userManager = userManager;
             _localization = localization;
             _roleManager = roleManager;
             _mapper = mapper;
+            _validator = validator;
         }
 
         public async Task<Response> Handle(SignUpCommand command, CancellationToken cancellationToken)
         {
+            var validationResult = await _validator.ValidateAsync(command);
+
+            if (!validationResult.IsValid)
+            {
+                return await Response.FailureAsync(validationResult.Errors.First().ErrorMessage);
+            }
+
 
             if (await _userManager.FindByNameAsync(command.UserName) is not null)
             {
@@ -62,10 +72,26 @@ namespace Galaxy.Application.Features.Auth.SignUp.Command
                 return await Response.FailureAsync(_localization["RoleNotExist"].Value);
             }
 
+            if (await _userManager.Users.AnyAsync(x => x.EmployeeId == command.EmployeeId))
+            {
+                return await Response.FailureAsync(_localization["EmployeeIdExist"].Value);
+            }
+
             var user = _mapper.Map<ApplicationUser>(command);
 
-            await _userManager.CreateAsync(user,command.Password);
-            await _userManager.AddToRoleAsync(user, command.Role);
+            var result = await _userManager.CreateAsync(user, command.Password);
+
+            if (!result.Succeeded)
+            {
+                return await Response.FailureAsync(result.Errors.First().Description);
+            }
+
+            result = await _userManager.AddToRoleAsync(user, command.Role);
+
+            if (!result.Succeeded)
+            {
+                return await Response.FailureAsync(result.Errors.First().Description);
+            }
 
             return await Response.SuccessAsync(user.Id);
         }

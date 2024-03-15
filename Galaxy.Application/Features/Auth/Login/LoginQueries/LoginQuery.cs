@@ -46,6 +46,7 @@ namespace Galaxy.Application.Features.Auth.Login.LoginQueries
 
             var response = new LoginQueryDto()
             {
+                Id = user.Id,
                 Token = token
             };
 

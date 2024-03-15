@@ -8,6 +8,7 @@ namespace Galaxy.Application.Features.Auth.Login.LoginQueries
 {
     public class LoginQueryDto
     {
+        public string Id { get; set; }
         public string Token {  get; set; } 
     }
 }

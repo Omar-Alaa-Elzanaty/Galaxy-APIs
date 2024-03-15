@@ -1,9 +1,14 @@
 ﻿using Galaxy.Application.Features.Auth.Login.LoginQueries;
 using Galaxy.Application.Features.Auth.SignUp.Command;
+using Galaxy.Application.Features.Users.Commands.Delete;
+using Galaxy.Application.Features.Users.Commands.EditUserRole;
+using Galaxy.Application.Features.Users.Commands.Update;
+using Galaxy.Application.Features.Users.Queries.GetAllUsers;
+using Galaxy.Application.Features.Users.Queries.GetPasswordByUserId;
+using Galaxy.Application.Features.Users.Queries.GetUserInfo;
 using Galaxy.Domain.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Galaxy.Presentation.Controller
@@ -27,7 +32,7 @@ namespace Galaxy.Presentation.Controller
 
         [HttpPost("createAccount")]
         [Authorize(Roles = Roles.OWNER)]
-        public async Task<ActionResult<int>>CreateAccount([FromForm]SignUpCommand command)
+        public async Task<ActionResult<int>> CreateAccount([FromForm] SignUpCommand command)
         {
             return Ok(await _mediator.Send(command));
         }

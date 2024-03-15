@@ -20,9 +20,9 @@ namespace Galaxy.Presentation.Controller
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GetAllCustomersQueryDto>>> GetAll()
+        public async Task<ActionResult<List<GetAllCustomersQueryDto>>> GetAll([FromQuery]GetAllCustomersQuery query)
         {
-            return Ok(await _mediator.Send(new GetAllCustomersQuery()));
+            return Ok(await _mediator.Send(query));
         }
 
         [HttpGet("{id}")]

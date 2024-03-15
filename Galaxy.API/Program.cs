@@ -79,7 +79,7 @@ builder.Services.AddCors();
 
 using (var scope = builder.Services.BuildServiceProvider().CreateScope())
 {
-    using (var galaxyDb = scope.ServiceProvider.GetRequiredService<GalaxyDbContext>())
+    using (var galaxyDb = scope?.ServiceProvider.GetRequiredService<GalaxyDbContext>())
     {
         if (galaxyDb.Database.GetPendingMigrations().Any())
         {

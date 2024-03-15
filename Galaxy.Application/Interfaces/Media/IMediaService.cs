@@ -11,6 +11,6 @@ namespace Pharamcy.Application.Interfaces.Media
     {
         Task DeleteAsync(string url);
         Task<string> SaveAsync(IFormFile media);
-        Task<string> UpdateAsync(string oldUrl, IFormFile newMedia);
+        Task<string> UpdateAsync(string oldUrl, IFormFile? newMedia);
     }
 }
