@@ -52,6 +52,7 @@ The first four digits represent the year
   * Password: 123@Abc
 * Auto Generation barcode for each item comes from  suppliers
 * Tracking Low inventory for each product to be aware of amounts.
+* The owner displays passwords for all users with secure numbers. 
 
 ## Database Diagram : :fast_forward:	
 
