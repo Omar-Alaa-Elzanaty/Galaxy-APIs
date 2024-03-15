@@ -2,10 +2,10 @@
 using Galaxy.Application.Features.Suppliers.Queries.GetAllLatestPruchases;
 using Galaxy.Application.Features.Suppliers.Queries.GetAllSuppliers;
 using Galaxy.Domain.Constants;
+using Galaxy.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SBS.Recruitment.Shared;
 
 namespace Galaxy.Presentation.Controller
 {

@@ -3,7 +3,6 @@ using Galaxy.Application.Interfaces.Repositories;
 using Galaxy.Domain.Models;
 using Galaxy.Shared;
 using MediatR;
-using SBS.Recruitment.Shared;
 
 namespace Galaxy.Application.Features.Suppliers.Queries.GetAllSuppliers
 {
@@ -24,7 +23,7 @@ namespace Galaxy.Application.Features.Suppliers.Queries.GetAllSuppliers
 
         public async Task<PaginatedResponse<GetAllSupplierQueryDto>> Handle(GetAllSupplierQuery query, CancellationToken cancellationToken)
         {
-            var suppliers = await _unitOfWork.Repository<Supplier>().Entities()
+            var suppliers = _unitOfWork.Repository<Supplier>().Entities()
                            .Select(x => new GetAllSupplierQueryDto()
                            {
                                Id = x.Id,
@@ -32,10 +31,20 @@ namespace Galaxy.Application.Features.Suppliers.Queries.GetAllSuppliers
                                IdUrl = x.IdUrl,
                                ImageUrl = x.ImageUrl,
                                LatestPurchase = x.Invoices.OrderBy(x => x.CreationDate).FirstOrDefault()!.CreationDate
-                           }).ToPaginatedListAsync(query.PageNumber, query.PageSize, cancellationToken);
+                           });
 
+            switch (query.GetAllSupplierColumn)
+            {
+                case GetAllSupplierColumn.Name:
+                    suppliers = suppliers.OrderBy(x => x.Name);
+                    break;
 
-            return suppliers;
+                case GetAllSupplierColumn.LatestPurchase:
+                    suppliers = suppliers.OrderBy(x => x.LatestPurchase);
+                    break;
+            }
+
+            return await suppliers.ToPaginatedListAsync(query.PageNumber, query.PageSize, cancellationToken);
         }
     }
 }

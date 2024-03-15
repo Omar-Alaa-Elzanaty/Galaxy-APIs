@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SBS.Recruitment.Shared;
+﻿using Galaxy.Shared;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Galaxy.Application.Extention
 {
@@ -11,6 +12,7 @@ namespace Galaxy.Application.Extention
             pageSize = pageSize == 0 ? 10 : pageSize;
             int count = await source.CountAsync();
             pageNumber = pageNumber <= 0 ? 1 : pageNumber;
+
             List<T> items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             return PaginatedResponse<T>.Create(items, count, pageNumber, pageSize);
         }

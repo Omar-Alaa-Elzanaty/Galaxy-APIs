@@ -7,10 +7,11 @@ using Galaxy.Application.Features.Products.Queries.GetProductById;
 using Galaxy.Application.Features.Products.Queries.GetProductInDetails;
 using Galaxy.Application.Features.Products.Queries.GetProductsNames;
 using Galaxy.Domain.Constants;
+using Galaxy.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SBS.Recruitment.Shared;
+
 
 namespace Galaxy.Presentation.Controller
 {

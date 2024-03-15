@@ -7,6 +7,7 @@ namespace Galaxy.Application.Features.Products.Commands.Create
         public AddProductCommandValidator()
         {
             RuleFor(x => x.Name).NotEmpty();
+            RuleFor(x=>x.Rating).InclusiveBetween(1, 10);
         }
     }
 }

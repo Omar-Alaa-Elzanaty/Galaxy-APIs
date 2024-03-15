@@ -8,5 +8,6 @@ namespace Galaxy.Domain.Identity
         public string EmployeeId { get; set; }
         public string Name { get; set; }
         public Gander Gander { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -6,7 +6,6 @@ using Mapster;
 using MapsterMapper;
 using MediatR;
 using Microsoft.IdentityModel.Tokens;
-using SBS.Recruitment.Shared;
 
 namespace Galaxy.Application.Features.Customers.Querires.GetAllCustomers
 {

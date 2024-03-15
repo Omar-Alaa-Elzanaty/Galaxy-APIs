@@ -4,13 +4,12 @@ using Galaxy.Domain.Models;
 using Galaxy.Shared;
 using Mapster;
 using MediatR;
-using SBS.Recruitment.Shared;
 
 namespace Galaxy.Application.Features.CustomerInvoices.Queries.GetAllCustomerInvoiceByCustomerId
 {
     public record GetAllcustomerInvoiceByCustomerIdQuery : PaginatedRequest, IRequest<PaginatedResponse<GetAllcustomerInvoiceByCustomerIdQueryDto>>
     {
-        public int Id { get; set; }
+        public int CustomerId { get; set; }
 
         public GetAllCustomerInvoiceByCustomerIdColumn GetAllCustomerInvoiceByCustomerIdColumn { get; set; }
     }
@@ -27,7 +26,7 @@ namespace Galaxy.Application.Features.CustomerInvoices.Queries.GetAllCustomerInv
         public async Task<PaginatedResponse<GetAllcustomerInvoiceByCustomerIdQueryDto>> Handle(GetAllcustomerInvoiceByCustomerIdQuery query, CancellationToken cancellationToken)
         {
             var customerInvoices = _unitOfWork.Repository<CustomerInvoice>()
-                           .Entities().Where(x => x.CustomerId == query.Id);
+                           .Entities().Where(x => x.CustomerId == query.CustomerId);
 
             switch (query.GetAllCustomerInvoiceByCustomerIdColumn)
             {

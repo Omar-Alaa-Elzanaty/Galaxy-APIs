@@ -1,10 +1,11 @@
 ﻿using System.Net;
 using Galaxy.Shared;
 
-namespace SBS.Recruitment.Shared
+namespace Galaxy.Shared
 {
     public class PaginatedResponse<T> : Response
     {
+        public PaginatedResponse() { }
         public PaginatedResponse(List<T> data)
         {
             Data = data;

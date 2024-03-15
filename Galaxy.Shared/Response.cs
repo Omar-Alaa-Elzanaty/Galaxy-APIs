@@ -13,7 +13,6 @@ namespace Galaxy.Shared
         public bool IsSuccess { get; set; }
         public object? Data { get; set; }
         public string Message { get; set; } = "";
-
         public async static Task<Response> SuccessAsync(object data, string message)
         {
             Response response = new Response()
@@ -62,6 +61,17 @@ namespace Galaxy.Shared
             Response response = new Response()
             {
                 StatusCode = HttpStatusCode.BadRequest,
+                IsSuccess = false,
+                Message = message
+            };
+
+            return response;
+        }
+        public async static Task<Response> FailureAsync(string message,HttpStatusCode statusCode)
+        {
+            Response response = new Response()
+            {
+                StatusCode = statusCode,
                 IsSuccess = false,
                 Message = message
             };

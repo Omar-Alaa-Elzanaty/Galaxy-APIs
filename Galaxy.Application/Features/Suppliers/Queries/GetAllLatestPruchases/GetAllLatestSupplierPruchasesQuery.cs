@@ -4,7 +4,6 @@ using Galaxy.Shared;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using SBS.Recruitment.Shared;
 
 namespace Galaxy.Application.Features.Suppliers.Queries.GetAllLatestPruchases
 {

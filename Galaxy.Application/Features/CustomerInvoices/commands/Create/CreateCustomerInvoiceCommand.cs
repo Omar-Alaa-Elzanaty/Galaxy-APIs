@@ -1,4 +1,5 @@
-﻿using Galaxy.Application.Interfaces.Repositories;
+﻿using FluentValidation;
+using Galaxy.Application.Interfaces.Repositories;
 using Galaxy.Domain.Models;
 using Galaxy.Shared;
 using MediatR;
@@ -25,6 +26,7 @@ namespace Galaxy.Application.Features.CustomerInvoices.commands.Create
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IStringLocalizer<CreateCustomerInvoiceCommandHandler> _localization;
+        private readonly IValidator<CreateCustomerInvoiceCommand> _validator;
         public CreateCustomerInvoiceCommandHandler(
             IUnitOfWork unitOfWork,
             IStringLocalizer<CreateCustomerInvoiceCommandHandler> localization)
@@ -35,6 +37,12 @@ namespace Galaxy.Application.Features.CustomerInvoices.commands.Create
 
         public async Task<Response> Handle(CreateCustomerInvoiceCommand command, CancellationToken cancellationToken)
         {
+            var validationResult = await _validator.ValidateAsync(command);
+
+            if(!validationResult.IsValid)
+            {
+                return await Response.FailureAsync(validationResult.Errors.First().ErrorMessage);
+            }
 
             var customer = await _unitOfWork.Repository<Customer>()
                         .GetItemOnAsync(x => x.PhoneNumber == command.PhoneNumber);

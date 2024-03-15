@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Galaxy.Application.Features.Products.Commands.Update
 {
-    internal class UpdateProductCommandValidator:AbstractValidator<UpdateProductCommand>
+    public class UpdateProductCommandValidator : AbstractValidator<UpdateProductCommand>
     {
         public UpdateProductCommandValidator()
         {
-            
+            RuleFor(x => x.Rating).InclusiveBetween(1, 5);
+            RuleFor(x => x.Name).MaximumLength(20);
         }
     }
 }

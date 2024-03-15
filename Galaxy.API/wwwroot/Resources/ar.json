@@ -1,5 +1,6 @@
 {
   "Success": ".عملية ناجحة",
+  "FailedCreateAccount": ".فشل اضافة مستخدم",
   "UserNotFound": ".فشل ايجاد المستخدم",
   "InvalidLogin": ".رقم المستخدم او كلمة السر غير صالح",
   "SupplierExist": ".المورد موجود مسبقا",
@@ -7,6 +8,12 @@
   "ProductExist": ".المنتج موجود مسبقا",
   "ItemNotFound": ".فشل ايجاد العنصر",
   "Unauthorize": ".لا تملك صلاحية",
+  "UserNameExist": "اسم المستخدم موجود مسبقا",
+  "PhoneNumberExist": "رقم الهاتف موجود مسبقا",
+  "RoleNotExist": "لا يوجد دور بهذا الاسم",
+  "EmailExist": "الايميل مستخدم من قبل",
+  "EmployeeIdExist": ".الرقم التعريفى موجود مسبقا",
+  "PriceNotBeZero": ".السعر يجب ان يكون اعلى من صفر",
   "ErrorBarcoding": "",
   "GenerateBarCodeError": ""
 }

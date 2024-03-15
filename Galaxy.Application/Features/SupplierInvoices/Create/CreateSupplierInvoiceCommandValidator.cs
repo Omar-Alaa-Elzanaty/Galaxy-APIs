@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Galaxy.Application.Features.SupplierInvoices.Create
 {
-    public class CreateSupplierInvoiceCommandValidator:AbstractValidator<CreateSupplierInvoiceCommand>
+    public class CreateSupplierInvoiceCommandValidator : AbstractValidator<CreateSupplierInvoiceCommand>
     {
         public CreateSupplierInvoiceCommandValidator()
         {
-            
+            RuleFor(x => x.ImportItems).NotEmpty();
+            RuleFor(x => x.SupplierId).NotEmpty();
+            RuleFor(x => x.TotalInvoiceCost).GreaterThan(0);
         }
     }
 }

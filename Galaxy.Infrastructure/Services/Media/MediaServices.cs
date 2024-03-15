@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using Pharamcy.Application.Interfaces.Media;
 
 namespace Pharamcy.Infrastructure.Media
@@ -57,8 +58,17 @@ namespace Pharamcy.Infrastructure.Media
             return baseUrl + uniqueFileName;
         }
 
-        public async Task<string> UpdateAsync(string oldUrl, IFormFile newMedia)
+        public async Task<string> UpdateAsync(string oldUrl, IFormFile? newMedia)
         {
+            if(newMedia is null)
+            {
+                return oldUrl;
+            }
+            if(oldUrl.IsNullOrEmpty())
+            {
+                await SaveAsync(newMedia);
+            }
+
             await DeleteAsync(oldUrl);
             return await SaveAsync(newMedia);
         }

@@ -10,9 +10,9 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 
-namespace Galaxy.Application.Features.Auth.Users.GetUserInfo
+namespace Galaxy.Application.Features.Users.Queries.GetUserInfo
 {
-    public record GetUserInfoQuery:IRequest<Response>
+    public record GetUserInfoQuery : IRequest<Response>
     {
         public string Id { get; set; }
 
@@ -39,7 +39,7 @@ namespace Galaxy.Application.Features.Auth.Users.GetUserInfo
         {
             var entity = await _userManager.FindByIdAsync(query.Id);
 
-            if(entity is null)
+            if (entity is null)
             {
                 return await Response.FailureAsync(_localization["UserNotFound"].Value);
             }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Galaxy.Domain.Constants;
 
-namespace Galaxy.Application.Features.Auth.Users.GetUserInfo
+namespace Galaxy.Application.Features.Users.Queries.GetUserInfo
 {
     public class GetUserInfoQueryDto
     {
