@@ -2,7 +2,7 @@
 using Galaxy.Application.Features.Stores.Commands.TransferItem;
 using Galaxy.Application.Features.Stores.Queries.CheckItemByBarCode;
 using Galaxy.Application.Features.Stores.Queries.GetLowInventories;
-using Galaxy.Application.Features.SupplierInvoices.Create;
+using Galaxy.Application.Features.SupplierInvoices.Commands.Create;
 using Galaxy.Domain.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

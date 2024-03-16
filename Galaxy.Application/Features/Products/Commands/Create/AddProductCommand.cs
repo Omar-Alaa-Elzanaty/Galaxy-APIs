@@ -50,7 +50,7 @@ namespace Galaxy.Application.Features.Products.Commands.Create
 
             if (!validationResult.IsValid)
             {
-                return await Response.FailureAsync(_localization["InvalidRequest"].Value);
+                return await Response.FailureAsync(validationResult.Errors.First().ErrorMessage);
             }
 
             if (await _unitOfWork.Repository<Product>().Entities().AnyAsync(x => x.Name == command.Name))

@@ -14,6 +14,9 @@
   "EmailExist": "الايميل مستخدم من قبل",
   "EmployeeIdExist": ".الرقم التعريفى موجود مسبقا",
   "PriceNotBeZero": ".السعر يجب ان يكون اعلى من صفر",
+  "RatingLimitException": ".يجب ان يكون التقييم ما بين 1 الى 5",
+  "GanderException": ".النوع يجب ان يكون ذكر او انثى فقط",
+  "EmailIsNotValidExpression": ".هذا النص لا يطابق شكل الايميل",
   "ErrorBarcoding": "",
   "GenerateBarCodeError": ""
 }

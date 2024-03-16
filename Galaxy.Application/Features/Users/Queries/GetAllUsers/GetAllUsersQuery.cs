@@ -18,13 +18,10 @@ namespace Galaxy.Application.Features.Users.Queries.GetAllUsers
     internal class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, PaginatedResponse<GetAllUsersQueryDto>>
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IMapper _mapper;
         public GetAllUsersQueryHandler(
-            UserManager<ApplicationUser> userManager,
-            IMapper mapper)
+            UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
-            _mapper = mapper;
         }
 
         public async Task<PaginatedResponse<GetAllUsersQueryDto>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
@@ -33,13 +30,24 @@ namespace Galaxy.Application.Features.Users.Queries.GetAllUsers
 
             if (query.KeyWord is not null)
             {
-                entities = entities.Where(x => x.UserName!.Contains(query.KeyWord) || x.Name.Contains(query.KeyWord)
-                                 || x.PhoneNumber!.Contains(query.KeyWord)
-                                 || x.EmployeeId.Contains(query.KeyWord) || query.Gander != null && x.Gander == query.Gander);
+                entities = entities.Where(x => x.UserName!.Contains(query.KeyWord)
+                                            || x.Name.Contains(query.KeyWord)
+                                            || x.PhoneNumber!.Contains(query.KeyWord)
+                                            || x.EmployeeId.Contains(query.KeyWord));
+            }
+
+            if (query.Gander is not null)
+            {
+                entities = entities.Where(x => x.Gander == query.Gander);
             }
 
             var users = await entities.ProjectToType<GetAllUsersQueryDto>()
                 .ToPaginatedListAsync(query.PageNumber, query.PageSize, cancellationToken);
+
+            foreach(var user in users.Data)
+            {
+                user.Role = _userManager.GetRolesAsync(entities.First(x => x.Id == user.Id)).Result.First();
+            }
 
             return users;
         }

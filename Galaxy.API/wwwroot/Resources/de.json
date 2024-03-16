@@ -14,6 +14,9 @@
   "EmailExist": "E-Mail ist bereits vorhanden",
   "EmployeeIdExist": "Mitarbeiter-ID existiert bereits",
   "PriceNotBeZero": "Der Preis sollte nicht null sein",
+  "RatingLimitException": "Die Bewertung sollte zwischen 1 und 5 liegen",
+  "GanderException": "Gander sollte nur männlich oder weiblich sein",
+  "EmailIsNotValidExpression": "E-Mail ist ein ungültiger Ausdruck",
   "ErrorBarcoding": "",
   "GenerateBarCodeError": ""
 }

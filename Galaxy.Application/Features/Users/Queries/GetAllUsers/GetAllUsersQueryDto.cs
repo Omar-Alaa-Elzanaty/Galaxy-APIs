@@ -10,5 +10,6 @@
         public string PhoneNumber { get; set; }
         public string Gander { get; set; }
         public string EmployeeId { get; set; }
+        public string Role { get; set; }
     }
 }
