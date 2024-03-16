@@ -7,7 +7,7 @@ using Galaxy.Application.Features.Products.Commands.Create;
 using Galaxy.Application.Features.Products.Commands.Update;
 using Galaxy.Application.Features.Products.Queries.GetAllProducts;
 using Galaxy.Application.Features.Products.Queries.GetProductById;
-using Galaxy.Application.Features.SupplierInvoices.Create;
+using Galaxy.Application.Features.SupplierInvoices.Commands.Create;
 using Galaxy.Domain.Models;
 using Mapster;
 

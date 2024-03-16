@@ -1,9 +1,11 @@
-﻿using Galaxy.Domain.Constants;
+﻿using FluentValidation;
+using Galaxy.Domain.Constants;
 using Galaxy.Domain.Identity;
 using Galaxy.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
+using Microsoft.VisualBasic;
 
 namespace Galaxy.Application.Features.Users.Commands.Update
 {
@@ -18,21 +20,31 @@ namespace Galaxy.Application.Features.Users.Commands.Update
         public Gander Gander { get; set; }
     }
 
-    internal class UpdateHandler : IRequestHandler<UpdateProfileCommand, Response>
+    internal class UpdateProfileCommandHandler : IRequestHandler<UpdateProfileCommand, Response>
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IStringLocalizer<UpdateHandler> _localization;
+        private readonly IStringLocalizer<UpdateProfileCommandHandler> _localization;
+        private readonly IValidator<UpdateProfileCommand> _validator;
 
-        public UpdateHandler(
-            IStringLocalizer<UpdateHandler> localization,
-            UserManager<ApplicationUser> userManager)
+        public UpdateProfileCommandHandler(
+            IStringLocalizer<UpdateProfileCommandHandler> localization,
+            UserManager<ApplicationUser> userManager,
+            IValidator<UpdateProfileCommand> validator)
         {
             _localization = localization;
             _userManager = userManager;
+            _validator = validator;
         }
 
         public async Task<Response> Handle(UpdateProfileCommand command, CancellationToken cancellationToken)
         {
+            var validatorResult = await _validator.ValidateAsync(command);
+
+            if(!validatorResult.IsValid)
+            {
+                return await Response.FailureAsync(validatorResult.Errors.First().ErrorMessage);
+            }
+
             var user = await _userManager.FindByIdAsync(command.Id);
 
             if (user is null)

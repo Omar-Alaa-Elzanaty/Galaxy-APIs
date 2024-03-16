@@ -36,7 +36,7 @@ namespace Galaxy.Presentation.Controller
 
         [HttpGet("userPassword")]
         [Authorize(Roles = Roles.OWNER)]
-        public async Task<ActionResult<string>> GetUserPassword([FromQuery]GetPasswordByUserIdQuery query)
+        public async Task<ActionResult<string>> GetUserPassword([FromBody]GetPasswordByUserIdQuery query)
         {
             return Ok(await _mediator.Send(query));
         }

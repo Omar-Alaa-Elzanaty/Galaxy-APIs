@@ -1,4 +1,5 @@
-﻿using Galaxy.Domain.Identity;
+﻿using FluentValidation;
+using Galaxy.Domain.Identity;
 using Galaxy.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -17,19 +18,29 @@ namespace Galaxy.Application.Features.Users.Commands.EditUserRole
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IStringLocalizer<EditUserRoleCommandHandler> _localization;
+        private readonly IValidator<EditUserRoleCommand> _validator;
 
         public EditUserRoleCommandHandler(
             UserManager<ApplicationUser> userManager,
             IStringLocalizer<EditUserRoleCommandHandler> localization,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            IValidator<EditUserRoleCommand> validator)
         {
             _userManager = userManager;
             _localization = localization;
             _roleManager = roleManager;
+            _validator = validator;
         }
 
         public async Task<Response> Handle(EditUserRoleCommand command, CancellationToken cancellationToken)
         {
+            var validationResult = await _validator.ValidateAsync(command);
+
+            if (!validationResult.IsValid)
+            {
+                return await Response.FailureAsync(validationResult.Errors.First().ErrorMessage);
+            }
+
             var user = await _userManager.FindByIdAsync(command.userId);
 
             if (user is null)

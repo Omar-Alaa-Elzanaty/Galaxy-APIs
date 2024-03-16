@@ -16,14 +16,11 @@ namespace Galaxy.Application.Features.Products.Queries.GetAllProducts
     internal class GetAllProductQueryHandler : IRequestHandler<GetAllProductsQuery, PaginatedResponse<GetAllProductsQueryDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
         public GetAllProductQueryHandler(
-            IUnitOfWork unitOfWork,
-            IMapper mapper)
+            IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         public async Task<PaginatedResponse<GetAllProductsQueryDto>> Handle(GetAllProductsQuery query, CancellationToken cancellationToken)

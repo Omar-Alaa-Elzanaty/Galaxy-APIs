@@ -8,8 +8,8 @@ namespace Galaxy.Shared
 {
     public record PaginatedRequest
     {
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
+        public int PageNumber { get; set; } = 0;
+        public int PageSize { get; set; } = 0;
         public string? KeyWord { get; set; }
     }
 }

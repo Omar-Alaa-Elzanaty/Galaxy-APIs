@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 
-namespace Galaxy.Application.Features.SupplierInvoices.Create
+namespace Galaxy.Application.Features.SupplierInvoices.Commands.Create
 {
     public record CreateSupplierInvoiceCommand : IRequest<Response>
     {
@@ -59,11 +59,11 @@ namespace Galaxy.Application.Features.SupplierInvoices.Create
             var validationResult = await _validator.ValidateAsync(command);
 
             if (!validationResult.IsValid)
-            { 
+            {
                 return await Response.FailureAsync(validationResult.Errors.First().ErrorMessage);
             }
-            
-            foreach(var item in command.ImportItems)
+
+            foreach (var item in command.ImportItems)
             {
                 if (item.CurrentPurchase == 0 || item.SellingPrice == 0)
                 {
@@ -79,7 +79,7 @@ namespace Galaxy.Application.Features.SupplierInvoices.Create
             };
             var BarCodes = new List<ProductsBarCodesDto>();
 
-            var yearCode = _barCodeSerivce.CompleteString((DateTime.Now.Year % 1000).ToString(), 4);
+            var yearCode = _barCodeSerivce.CompleteString((DateTime.Now.Year % 1000).ToString(), 3);
 
             //DataTable dataTable = new("Galaxy.ItemInStock");
             //dataTable.Columns.Add("BarCode", typeof(string));
@@ -99,9 +99,9 @@ namespace Galaxy.Application.Features.SupplierInvoices.Create
 
                 //Add items to stock
                 var lastserial = _unitOfWork.Repository<Stock>().Entities()
-                    .Where(x => x.BarCode.Substring(4, 4) == product.SerialCode)
-                    .OrderByDescending(x => x.BarCode.Substring(8))
-                    .FirstOrDefaultAsync().Result?.BarCode[8..];
+                    .Where(x => x.BarCode.Substring(0, 7) == yearCode + product.SerialCode)
+                    .OrderByDescending(x => x.BarCode)
+                    .FirstOrDefaultAsync().Result?.BarCode[7..];
 
                 int serialNumber = 0;
 
@@ -171,7 +171,7 @@ namespace Galaxy.Application.Features.SupplierInvoices.Create
             //    connection.Close();
             //}
 
-            return await Response.SuccessAsync(BarCodes,_localization["Success"].Value);
+            return await Response.SuccessAsync(BarCodes, _localization["Success"].Value);
         }
     }
 }
