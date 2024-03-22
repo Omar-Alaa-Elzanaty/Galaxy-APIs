@@ -8,7 +8,7 @@ namespace Galaxy.Application.Features.Suppliers.Queries.GetAllSuppliers
 {
     public record GetAllSupplierQuery : PaginatedRequest, IRequest<PaginatedResponse<GetAllSupplierQueryDto>>
     {
-        public GetAllSupplierColumn GetAllSupplierColumn { get; set; }
+        public GetAllSupplierColumn? GetAllSupplierColumn { get; set; }
     }
 
     internal class GetAllSupplierQueryHandler : IRequestHandler<GetAllSupplierQuery, PaginatedResponse<GetAllSupplierQueryDto>>
@@ -33,15 +33,24 @@ namespace Galaxy.Application.Features.Suppliers.Queries.GetAllSuppliers
                                LatestPurchase = x.Invoices.OrderBy(x => x.CreationDate).FirstOrDefault()!.CreationDate
                            });
 
-            switch (query.GetAllSupplierColumn)
-            {
-                case GetAllSupplierColumn.Name:
-                    suppliers = suppliers.OrderBy(x => x.Name);
-                    break;
 
-                case GetAllSupplierColumn.LatestPurchase:
-                    suppliers = suppliers.OrderBy(x => x.LatestPurchase);
-                    break;
+            if (query.KeyWord is not null)
+            {
+                suppliers = suppliers.Where(x => x.Name.ToLower().Contains(query.KeyWord));
+            }
+
+            if(query.GetAllSupplierColumn is not null)
+            {
+                switch (query.GetAllSupplierColumn)
+                {
+                    case GetAllSupplierColumn.Name:
+                        suppliers = suppliers.OrderBy(x => x.Name);
+                        break;
+
+                    case GetAllSupplierColumn.LatestPurchase:
+                        suppliers = suppliers.OrderBy(x => x.LatestPurchase);
+                        break;
+                }
             }
 
             return await suppliers.ToPaginatedListAsync(query.PageNumber, query.PageSize, cancellationToken);

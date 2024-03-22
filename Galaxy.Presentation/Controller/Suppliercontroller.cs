@@ -1,6 +1,9 @@
 ﻿using Galaxy.Application.Features.Suppliers.Commands.Create;
+using Galaxy.Application.Features.Suppliers.Commands.Delete;
+using Galaxy.Application.Features.Suppliers.Commands.Update;
 using Galaxy.Application.Features.Suppliers.Queries.GetAllLatestPruchases;
 using Galaxy.Application.Features.Suppliers.Queries.GetAllSuppliers;
+using Galaxy.Application.Features.Suppliers.Queries.GetSupplierById;
 using Galaxy.Domain.Constants;
 using Galaxy.Shared;
 using MediatR;
@@ -11,7 +14,7 @@ namespace Galaxy.Presentation.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = Roles.OWNER)]
+    [Authorize()]
     public class Suppliercontroller : ApiControllerBase
     {
         private readonly IMediator _mediator;
@@ -39,5 +42,22 @@ namespace Galaxy.Presentation.Controller
             return Ok(await _mediator.Send(query));
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetSupplierByIdQueryDto>>Get(int id)
+        {
+            return Ok(await _mediator.Send(new GetSupplierByIdQuery(id)));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<string>>Delete(int id)
+        {
+            return Ok(await _mediator.Send(new DeleteSupplierCommandByIdCommand(id)));
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<string>>Update([FromForm]UpdateSupplierCommand command)
+        {
+            return Ok(await _mediator.Send(command));
+        }
     }
 }

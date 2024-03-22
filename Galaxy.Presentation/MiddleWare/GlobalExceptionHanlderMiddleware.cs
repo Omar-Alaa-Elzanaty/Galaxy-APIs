@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
+﻿using System.Net;
 using System.Text.Json;
-using System.Threading.Tasks;
 using Galaxy.Shared;
+using Galaxy.Shared.ErrorHandling;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
-using Galaxy.Shared.ErrorHandling;
 
 
 namespace Galaxy.Presentation.Middleware
@@ -28,7 +23,6 @@ namespace Galaxy.Presentation.Middleware
         {
             try
             {
-                await _next(context);
                 if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
                 {
 
@@ -48,7 +42,7 @@ namespace Galaxy.Presentation.Middleware
                     await context.Response.WriteAsync(exceptionResult);
                     return;
                 }
-
+                await _next(context);
             }
             catch (GlobalException ex)
             {

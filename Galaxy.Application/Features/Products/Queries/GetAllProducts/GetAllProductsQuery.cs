@@ -10,7 +10,7 @@ namespace Galaxy.Application.Features.Products.Queries.GetAllProducts
 {
     public record GetAllProductsQuery : PaginatedRequest, IRequest<PaginatedResponse<GetAllProductsQueryDto>>
     {
-        public ProductColumnName ProductColumnName { get; set; }
+        public ProductColumnName? ProductColumnName { get; set; }
         public string? KeyWord { get; set; }
     }
     internal class GetAllProductQueryHandler : IRequestHandler<GetAllProductsQuery, PaginatedResponse<GetAllProductsQueryDto>>
@@ -35,18 +35,21 @@ namespace Galaxy.Application.Features.Products.Queries.GetAllProducts
 
             if (!query.KeyWord.IsNullOrEmpty())
             {
-                entities = entities.Where(x => x.Name.Contains(query.KeyWord));
+                entities = entities.Where(x => x.Name.ToLower().Contains(query.KeyWord!.ToLower()!));
             }
 
-            switch (query.ProductColumnName)
+            if (query.ProductColumnName is not null)
             {
-                case ProductColumnName.Name:
-                    entities = entities.OrderBy(x => x.Name);
-                    break;
+                switch (query.ProductColumnName)
+                {
+                    case ProductColumnName.Name:
+                        entities = entities.OrderBy(x => x.Name);
+                        break;
 
-                case ProductColumnName.ProfitRatio:
-                    entities = entities.OrderBy(x => x.ProfitRatio);
-                    break;
+                    case ProductColumnName.ProfitRatio:
+                        entities = entities.OrderBy(x => x.ProfitRatio);
+                        break;
+                }
             }
 
             var products = await entities.ToPaginatedListAsync(query.PageNumber, query.PageSize, cancellationToken);

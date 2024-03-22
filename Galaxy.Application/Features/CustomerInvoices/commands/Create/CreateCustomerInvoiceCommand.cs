@@ -12,14 +12,10 @@ namespace Galaxy.Application.Features.CustomerInvoices.commands.Create
     {
         public string CustomerName { get; set; }
         public string PhoneNumber { get; set; }
-        public double TotalPrice { get; set; }
         public List<OrderItems> Items { get; set; }
     }
     public record OrderItems
     {
-        public string ProductName { get; set; }
-        public double ItemPrice { get; set; }
-        public double TotalPrice { get; set; }
         public List<string> BarCodes { get; set; }
     }
     internal class CreateCustomerInvoiceCommandHandler : IRequestHandler<CreateCustomerInvoiceCommand, Response>
@@ -29,19 +25,29 @@ namespace Galaxy.Application.Features.CustomerInvoices.commands.Create
         private readonly IValidator<CreateCustomerInvoiceCommand> _validator;
         public CreateCustomerInvoiceCommandHandler(
             IUnitOfWork unitOfWork,
-            IStringLocalizer<CreateCustomerInvoiceCommandHandler> localization)
+            IStringLocalizer<CreateCustomerInvoiceCommandHandler> localization,
+            IValidator<CreateCustomerInvoiceCommand> validator)
         {
             _unitOfWork = unitOfWork;
             _localization = localization;
+            _validator = validator;
         }
 
         public async Task<Response> Handle(CreateCustomerInvoiceCommand command, CancellationToken cancellationToken)
         {
             var validationResult = await _validator.ValidateAsync(command);
 
-            if(!validationResult.IsValid)
+            if (!validationResult.IsValid)
             {
                 return await Response.FailureAsync(validationResult.Errors.First().ErrorMessage);
+            }
+            var barCodes = command.Items.SelectMany(x => x.BarCodes).ToList();
+
+            var checkBarCodes = _unitOfWork.Repository<Stock>().Entities().Count(x => barCodes.Contains(x.BarCode));
+
+            if (barCodes.Count != checkBarCodes)
+            {
+                return await Response.FailureAsync(_localization["ItemsNotFound"].Value);
             }
 
             var customer = await _unitOfWork.Repository<Customer>()
@@ -62,19 +68,23 @@ namespace Galaxy.Application.Features.CustomerInvoices.commands.Create
             var invoice = new CustomerInvoice()
             {
                 Items = new List<CustomerInvoiceItem>(),
-                CustomerId = customer.Id,
-                Total = command.TotalPrice
+                CustomerId = customer.Id
             };
 
             var ItemsInStore = new List<Stock>();
 
             foreach (var item in command.Items)
             {
+                var product = _unitOfWork.Repository<Stock>().Entities()
+                    .FirstAsync(x => x.BarCode == item.BarCodes.First(), cancellationToken: cancellationToken)
+                    .Result.Product;
+
                 invoice.Items.Add(new()
                 {
-                    ProductName = item.ProductName,
+                    ProductName = product.Name,
                     Quantity = item.BarCodes.Count,
-                    ItemPrice = item.TotalPrice
+                    ItemPrice = product.SellingPrice,
+                    Total = item.BarCodes.Count * product.SellingPrice
                 });
 
                 ItemsInStore.AddRange(await _unitOfWork.Repository<Stock>().Entities()
@@ -84,6 +94,9 @@ namespace Galaxy.Application.Features.CustomerInvoices.commands.Create
             await _unitOfWork.Repository<Stock>().DeleteRange(ItemsInStore);
             await _unitOfWork.Repository<CustomerInvoice>().AddAsync(invoice);
             _ = await _unitOfWork.SaveAsync();
+
+
+            invoice.Total = invoice.Items.Sum(x => x.Total);
 
             return await Response.SuccessAsync(_localization["Success"].Value);
         }

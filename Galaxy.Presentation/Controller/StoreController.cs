@@ -25,7 +25,7 @@ namespace Galaxy.Presentation.Controller
         [HttpGet("checkBarCode/{barCode}")]
         public async Task<ActionResult<bool>>CheckBarCode(string barCode)
         {
-            return Ok(await _mediator.Send(new CheckItemInStockByBarcode(barCode)));
+            return Ok(await _mediator.Send(new CheckItemInStockByBarcodeQuery(barCode)));
         }
 
         [HttpPut("changeProductsPlace")]
