@@ -4,6 +4,7 @@
     {
         public const string OWNER = "Owner";
         public const string SALE = "Sales";
-        public const string Manager = "Manager";
+        public const string MANAGER = "Manager";
+        public const string WAREHOUSE = "WareHouse";
     }
 }

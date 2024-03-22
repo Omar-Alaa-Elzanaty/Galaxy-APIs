@@ -91,8 +91,9 @@ using (var scope = builder.Services.BuildServiceProvider().CreateScope())
             if (!roleManager.Roles.Any())
             {
                 await roleManager.CreateAsync(new IdentityRole(Roles.OWNER));
-                await roleManager.CreateAsync(new IdentityRole(Roles.Manager));
+                await roleManager.CreateAsync(new IdentityRole(Roles.MANAGER));
                 await roleManager.CreateAsync(new IdentityRole(Roles.SALE));
+                await roleManager.CreateAsync(new IdentityRole(Roles.WAREHOUSE));
             }
             if (!userManager.Users.Any())
             {

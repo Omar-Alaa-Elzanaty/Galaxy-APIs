@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Galaxy.Presentation.Controller
 {
     [Route("api/[controller]")]
-    [Authorize(Roles =Roles.OWNER)]
+    [Authorize(Roles =$"{Roles.OWNER},{Roles.MANAGER}")]
     public class PurchaseInvoiceController : ApiControllerBase
     {
         private readonly IMediator _mediator;

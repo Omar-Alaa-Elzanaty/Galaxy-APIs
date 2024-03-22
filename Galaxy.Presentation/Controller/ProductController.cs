@@ -17,7 +17,6 @@ namespace Galaxy.Presentation.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize()]
     public class ProductController : ApiControllerBase
     {
         private readonly IMediator _mediator;
@@ -27,42 +26,49 @@ namespace Galaxy.Presentation.Controller
             _mediator = mdiator;
         }
 
+        [Authorize($"{Roles.OWNER},{Roles.MANAGER}")]
         [HttpPost]
         public async Task<ActionResult<int>> Add([FromForm] AddProductCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<PaginatedResponse<GetAllProductsQueryDto>>> GetAll([FromQuery] GetAllProductsQuery query)
         {
             return Ok(await _mediator.Send(query));
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<GetProductByIdQuery>> GetById(int id)
         {
             return Ok(await _mediator.Send(new GetProductByIdQuery(id)));
         }
 
+        [Authorize]
         [HttpGet("barcode/{barCode}")]
         public async Task<ActionResult<GetProductByBarCodeQueryDto>> GetProductByBarCode(string barCode)
         {
             return Ok(await _mediator.Send(new GetProductByBarCodeQuery(barCode)));
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<int>> Delete(int id)
         {
-            return Ok(await _mediator.Send(new DeleteProductCommand(id)));
+            return Ok(/*await _mediator.Send(new DeleteProductCommand(id))*/);
         }
 
+        [Authorize]
         [HttpGet("getProductsName")]
         public async Task<ActionResult<int>> GetProductionsNames()
         {
             return Ok(await _mediator.Send(new GetProductsNamesQuery()));
         }
 
+        [Authorize($"{Roles.OWNER},{Roles.MANAGER}")]
         [HttpPut("{id}")]
         public async Task<ActionResult<int>> Update([FromForm] UpdateProductCommand command, int id)
         {
@@ -73,6 +79,8 @@ namespace Galaxy.Presentation.Controller
 
             return Ok(await _mediator.Send(command));
         }
+
+        [Authorize]
         [HttpGet("productInDetails/{productId}")]
         public async Task<ActionResult<int>> ProductInDetails(int productId)
         {

@@ -11,7 +11,7 @@ namespace Galaxy.Presentation.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize()]
+    [Authorize($"{Roles.OWNER},{Roles.MANAGER},{Roles.SALE}")]
     public class CustomerInvoiceController : ApiControllerBase
     {
         private readonly IMediator _mediator;
