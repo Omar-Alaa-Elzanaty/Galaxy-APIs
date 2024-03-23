@@ -1,7 +1,7 @@
 ﻿using Galaxy.Application.Features.Products.Commands.Create;
-using Galaxy.Application.Features.Products.Commands.Delete;
 using Galaxy.Application.Features.Products.Commands.Update;
 using Galaxy.Application.Features.Products.Queries.GetAllProducts;
+using Galaxy.Application.Features.Products.Queries.GetAllProductsCards;
 using Galaxy.Application.Features.Products.Queries.GetProductByBarCode;
 using Galaxy.Application.Features.Products.Queries.GetProductById;
 using Galaxy.Application.Features.Products.Queries.GetProductInDetails;
@@ -26,7 +26,7 @@ namespace Galaxy.Presentation.Controller
             _mediator = mdiator;
         }
 
-        [Authorize($"{Roles.OWNER},{Roles.MANAGER}")]
+        [Authorize(Roles = $"{Roles.OWNER},{Roles.MANAGER}")]
         [HttpPost]
         public async Task<ActionResult<int>> Add([FromForm] AddProductCommand command)
         {
@@ -34,8 +34,15 @@ namespace Galaxy.Presentation.Controller
         }
 
         [Authorize]
+        [HttpGet("getAllInCards")]
+        public async Task<ActionResult<PaginatedResponse<GetAllProductsCardsQueryDto>>> GetAllInCards([FromQuery] GetAllProductsCardsQuery query)
+        {
+            return Ok(await _mediator.Send(query));
+        }
+
+        [Authorize]
         [HttpGet]
-        public async Task<ActionResult<PaginatedResponse<GetAllProductsQueryDto>>> GetAll([FromQuery] GetAllProductsQuery query)
+        public async Task<ActionResult<PaginatedResponse<int>>> GetAll([FromQuery] GetAllProductsQuery query)
         {
             return Ok(await _mediator.Send(query));
         }
@@ -68,7 +75,7 @@ namespace Galaxy.Presentation.Controller
             return Ok(await _mediator.Send(new GetProductsNamesQuery()));
         }
 
-        [Authorize($"{Roles.OWNER},{Roles.MANAGER}")]
+        [Authorize(Roles = $"{Roles.OWNER},{Roles.MANAGER}")]
         [HttpPut("{id}")]
         public async Task<ActionResult<int>> Update([FromForm] UpdateProductCommand command, int id)
         {

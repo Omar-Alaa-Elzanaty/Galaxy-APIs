@@ -6,9 +6,15 @@
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime CreationDate { get; set; }
-        public List<GetCustomerByIdCustomerInvoiceDto> Invoices { get; set; }
+        public ICollection<GetCustomerByIdCustomerInvoiceDto> Invoices { get; set; }
     }
-    public class GetCustomerByIdCustomerInvoiceDto
+    public class GetCustomerByIdCustomerInvoiceDto 
+    { 
+        public int Id { get; set; }
+        public double Total { get; set; }
+        public List<GetCustomerByIdCustomerInvoiceItemsDto> Items { get; set; }
+    }
+    public class GetCustomerByIdCustomerInvoiceItemsDto
     {
         public int Id { get; set; }
         public string ProductName { get; set; }

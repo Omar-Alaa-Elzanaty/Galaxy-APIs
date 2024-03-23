@@ -2,13 +2,10 @@
 {
     public class GetAllProductsQueryDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string ImageUrl { get; set; }
-        public double ProfitRatio { get; set; }
-    }
-    public enum ProductColumnName
-    {
-        Name = 1,
-        ProfitRatio = 2
+        public int Rating { get; set; }
+        public int LowInventoryIn { get; set; }
     }
 }

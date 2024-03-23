@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Galaxy.Application.Features.Products.Commands.Create;
 using Galaxy.Application.Interfaces.Repositories;
 using Galaxy.Shared;
 using MapsterMapper;

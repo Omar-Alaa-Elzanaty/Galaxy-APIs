@@ -2,6 +2,7 @@
 using Galaxy.Application.Features.Customers.Querires.GetCustomerById;
 using Galaxy.Domain.Models;
 using Mapster;
+using Microsoft.Extensions.Hosting;
 
 namespace Galaxy.Application.Comman.Mapping
 {
@@ -10,8 +11,7 @@ namespace Galaxy.Application.Comman.Mapping
         public void Register(TypeAdapterConfig config)
         {
             config.NewConfig<Customer, GetAllCustomersQueryDto>();
-            config.NewConfig<Customer, GetCustomerByIdQueryDto>()
-                .Map(x => x.Invoices, y => y.Invoices);
+            config.NewConfig<Customer, GetCustomerByIdQueryDto>();
         }
     }
 }

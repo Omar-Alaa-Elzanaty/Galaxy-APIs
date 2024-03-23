@@ -1,60 +1,57 @@
-﻿using Galaxy.Application.Extention;
+﻿using FluentValidation;
+using Galaxy.Application.Extention;
 using Galaxy.Application.Interfaces.Repositories;
 using Galaxy.Domain.Models;
 using Galaxy.Shared;
-using MapsterMapper;
+using Mapster;
 using MediatR;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Galaxy.Application.Features.Products.Queries.GetAllProducts
 {
-    public record GetAllProductsQuery : PaginatedRequest, IRequest<PaginatedResponse<GetAllProductsQueryDto>>
+    public record GetAllProductsQuery : PaginatedRequest, IRequest<Response>
     {
-        public ProductColumnName? ProductColumnName { get; set; }
-        public string? KeyWord { get; set; }
+        public int? Evaluation { get; set; }
     }
-    internal class GetAllProductQueryHandler : IRequestHandler<GetAllProductsQuery, PaginatedResponse<GetAllProductsQueryDto>>
+
+    internal class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, Response>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IValidator<GetAllProductsQuery> _validator;
 
-        public GetAllProductQueryHandler(
-            IUnitOfWork unitOfWork)
+        public GetAllProductsQueryHandler(
+            IUnitOfWork unitOfWork,
+            IValidator<GetAllProductsQuery> validator)
         {
             _unitOfWork = unitOfWork;
+            _validator = validator;
         }
 
-        public async Task<PaginatedResponse<GetAllProductsQueryDto>> Handle(GetAllProductsQuery query, CancellationToken cancellationToken)
+        public async Task<Response> Handle(GetAllProductsQuery command, CancellationToken cancellationToken)
         {
-            var entities = _unitOfWork.Repository<Product>().Entities().Select(x => new GetAllProductsQueryDto()
-            {
-                Id = x.Id,
-                Name = x.Name,
-                ImageUrl = x.ImageUrl,
-                ProfitRatio = ((double)x.SellingPrice / x.CurrentPurchase) * 100
-            });
+            var validationResult = await _validator.ValidateAsync(command);
 
-            if (!query.KeyWord.IsNullOrEmpty())
+            if (!validationResult.IsValid)
             {
-                entities = entities.Where(x => x.Name.ToLower().Contains(query.KeyWord!.ToLower()!));
+                return await Response.FailureAsync(validationResult.Errors.First().ErrorMessage);
             }
 
-            if (query.ProductColumnName is not null)
-            {
-                switch (query.ProductColumnName)
-                {
-                    case ProductColumnName.Name:
-                        entities = entities.OrderBy(x => x.Name);
-                        break;
+            var entities = _unitOfWork.Repository<Product>().Entities();
 
-                    case ProductColumnName.ProfitRatio:
-                        entities = entities.OrderBy(x => x.ProfitRatio);
-                        break;
-                }
+            if (command.Evaluation is not null)
+            {
+                entities = entities.Where(x => x.Rating == command.Evaluation);
             }
 
-            var products = await entities.ToPaginatedListAsync(query.PageNumber, query.PageSize, cancellationToken);
+            if (!command.KeyWord.IsNullOrEmpty())
+            {
+                entities = entities.Where(x => x.Name.ToLower().Contains(command.KeyWord));
+            }
 
-            return products;
+            entities = entities.OrderBy(x => x.Name);
+
+            return await entities.ProjectToType<GetAllProductsQueryDto>()
+                          .ToPaginatedListAsync(command.PageNumber, command.PageSize, cancellationToken);
         }
     }
 }
