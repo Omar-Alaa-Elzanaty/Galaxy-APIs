@@ -44,6 +44,8 @@ namespace Galaxy.Application.Features.Products.Queries.GetProductInDetails
                 ImageUrl = product.ImageUrl,
                 ProductName = product.Name,
                 ProductTrack = 0,
+                LowInventoryIn = product.LowInventoryIn,
+                Rating = product.Rating,
                 PruchasePrice = product.CurrentPurchase,
                 SellingPrice = product.SellingPrice,
                 TransferOperations = 0

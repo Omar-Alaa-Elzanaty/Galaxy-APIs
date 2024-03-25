@@ -79,6 +79,8 @@ namespace Galaxy.Application.Features.Auth.SignUp.Command
 
             var user = _mapper.Map<ApplicationUser>(command);
 
+            user.EmployeeId = user.EmployeeId.Trim();
+
             var result = await _userManager.CreateAsync(user, command.Password);
 
             if (!result.Succeeded)

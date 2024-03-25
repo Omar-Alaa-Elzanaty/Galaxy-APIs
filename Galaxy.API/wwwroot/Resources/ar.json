@@ -4,7 +4,7 @@
   "UserNotFound": ".فشل ايجاد المستخدم",
   "InvalidLogin": ".رقم المستخدم او كلمة السر غير صالح",
   "SupplierExist": ".المورد موجود مسبقا",
-  "InvalidReqeust": ".طلب غير صحيح",
+  "InvalidRequest": ".طلب غير صحيح",
   "ProductExist": ".المنتج موجود مسبقا",
   "NoSupplierFound": "لم يتم العثور على مورد",
   "ItemNotFound": ".فشل ايجاد العنصر",
@@ -20,5 +20,5 @@
   "GanderException": ".النوع يجب ان يكون ذكر او انثى فقط",
   "EmailIsNotValidExpression": ".هذا النص لا يطابق شكل الايميل",
   "ItemsNotFound": ".بعض المنتجات غير موجودة او ربما لا يتوفر كمية منها",
-  "GenerateBarCodeError": ""
+  "SupplierNotFound": ".لم يتم العثور على المورد"
 }

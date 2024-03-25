@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 using Galaxy.Application.Interfaces.Repositories;
 using Galaxy.Domain.Constants;
 using Galaxy.Domain.Identity;
@@ -13,10 +14,9 @@ namespace Galaxy.Application.Features.Stores.Commands.TransferItem
 {
     public record TransferItemCommand : IRequest<Response>
     {
+        public string UserId { get; set; }
         public bool IsToStore { get; set; }
         public List<string> ItemsBarCode { get; set; } = [];
-        [JsonIgnore]
-        public string UserId { get; set; }
     }
     internal class TransferItemCommandHandler : IRequestHandler<TransferItemCommand, Response>
     {

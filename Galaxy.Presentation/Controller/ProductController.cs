@@ -79,7 +79,7 @@ namespace Galaxy.Presentation.Controller
         [HttpPut("{id}")]
         public async Task<ActionResult<int>> Update([FromForm] UpdateProductCommand command, int id)
         {
-            if (id != command.id)
+            if (id != command.Id)
             {
                 return BadRequest();
             }

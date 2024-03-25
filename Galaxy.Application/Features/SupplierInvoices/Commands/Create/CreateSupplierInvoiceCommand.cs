@@ -33,6 +33,7 @@ namespace Galaxy.Application.Features.SupplierInvoices.Commands.Create
         private readonly IMapper _mapper;
         private readonly IStringLocalizer<CreateSupplierInvoiceHandler> _localization;
         private readonly IValidator<CreateSupplierInvoiceCommand> _validator;
+        private readonly IValidator<SupplierImportItem> _itemValidator;
         private readonly IStockRepository _stockRepository;
         private readonly IConfiguration _config;
 
@@ -43,7 +44,8 @@ namespace Galaxy.Application.Features.SupplierInvoices.Commands.Create
             IStringLocalizer<CreateSupplierInvoiceHandler> localization,
             IConfiguration config,
             IStockRepository stockRepository,
-            IValidator<CreateSupplierInvoiceCommand> validator)
+            IValidator<CreateSupplierInvoiceCommand> validator,
+            IValidator<SupplierImportItem> itemValidator)
         {
             _unitOfWork = unitOfWork;
             _barCodeSerivce = barCodeSerivce;
@@ -52,6 +54,7 @@ namespace Galaxy.Application.Features.SupplierInvoices.Commands.Create
             _config = config;
             _stockRepository = stockRepository;
             _validator = validator;
+            _itemValidator = itemValidator;
         }
 
         public async Task<Response> Handle(CreateSupplierInvoiceCommand command, CancellationToken cancellationToken)
@@ -65,10 +68,23 @@ namespace Galaxy.Application.Features.SupplierInvoices.Commands.Create
 
             foreach (var item in command.ImportItems)
             {
-                if (item.CurrentPurchase == 0 || item.SellingPrice == 0)
+                var validatorResult = await _itemValidator.ValidateAsync(item);
+
+                if (!validatorResult.IsValid)
                 {
-                    return await Response.FailureAsync(_localization["PriceNotBeZero"].Value);
+                    return await Response.FailureAsync(validatorResult.Errors.First().ErrorMessage);
                 }
+                //if (item.CurrentPurchase == 0 || item.SellingPrice == 0)
+                //{
+                //    return await Response.FailureAsync(_localization["PriceNotBeZero"].Value);
+                //}
+            }
+
+            var supplier = await _unitOfWork.Repository<Supplier>().GetByIdAsync(command.SupplierId);
+
+            if(supplier is null)
+            {
+                return await Response.FailureAsync(_localization["SupplierNotFound"].Value);
             }
 
             var newInovice = new SupplierInvoice()

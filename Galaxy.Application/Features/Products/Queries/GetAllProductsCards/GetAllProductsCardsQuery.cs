@@ -2,7 +2,6 @@
 using Galaxy.Application.Interfaces.Repositories;
 using Galaxy.Domain.Models;
 using Galaxy.Shared;
-using MapsterMapper;
 using MediatR;
 using Microsoft.IdentityModel.Tokens;
 
@@ -30,7 +29,10 @@ namespace Galaxy.Application.Features.Products.Queries.GetAllProductsCards
                 Id = x.Id,
                 Name = x.Name,
                 ImageUrl = x.ImageUrl,
-                ProfitRatio = ((double)x.SellingPrice / x.CurrentPurchase) * 100,
+                ProfitRatio = x.CurrentPurchase == 0 ? 0 : ((double)x.SellingPrice / x.CurrentPurchase) * 100,
+                CurrentPurchase = x.CurrentPurchase,
+                Rating = x.Rating,
+                SellingPrice = x.SellingPrice,
                 NumberInStock = x.ItemsInStock.Where(s => s.IsInStock == true).Count(),
                 NumberInStore = x.ItemsInStock.Where(s => s.IsInStock == false).Count()
             });

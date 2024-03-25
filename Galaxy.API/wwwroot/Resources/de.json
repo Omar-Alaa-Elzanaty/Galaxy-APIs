@@ -4,7 +4,7 @@
   "UserNotFound": "Benutzer nicht gefunden",
   "InvalidLogin": "Der Benutzername oder das Passwort ist falsch",
   "SupplierExist": "Lieferant existiert bereits.",
-  "InvalidReqeust": "Ungültige Anfrage!!! Bitte versuche es erneut!",
+  "InvalidRequest": "Ungültige Anfrage!!! Bitte versuche es erneut!",
   "ProductExist": "Produkt existiert bereits.",
   "NoSupplierFound": "Konnte den Lieferanten nicht finden",
   "ItemNotFound": "Artikel wurde nicht gefunden.",
@@ -20,5 +20,5 @@
   "GanderException": "Gander sollte nur männlich oder weiblich sein",
   "EmailIsNotValidExpression": "E-Mail ist ein ungültiger Ausdruck",
   "ItemsNotFound": "Einige Produkte werden möglicherweise nicht gefunden oder die Menge ist nicht verfügbar.",
-  "GenerateBarCodeError": ""
+  "SupplierNotFound": "Lieferant nicht gefunden"
 }
