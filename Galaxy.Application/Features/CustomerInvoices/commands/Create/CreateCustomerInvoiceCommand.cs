@@ -43,7 +43,7 @@ namespace Galaxy.Application.Features.CustomerInvoices.commands.Create
             }
             var barCodes = command.Items.SelectMany(x => x.BarCodes).ToList();
 
-            var checkBarCodes = _unitOfWork.Repository<Stock>().Entities().Count(x => barCodes.Contains(x.BarCode));
+            var checkBarCodes = _unitOfWork.Repository<Stock>().Entities().Count(x => barCodes.Contains(x.BarCode) && x.IsInStock == false);
 
             if (barCodes.Count != checkBarCodes)
             {
