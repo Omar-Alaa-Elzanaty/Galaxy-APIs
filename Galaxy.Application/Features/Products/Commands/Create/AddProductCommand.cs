@@ -53,7 +53,7 @@ namespace Galaxy.Application.Features.Products.Commands.Create
                 return await Response.FailureAsync(validationResult.Errors.First().ErrorMessage);
             }
 
-            if (await _unitOfWork.Repository<Product>().Entities().AnyAsync(x => x.Name == command.Name))
+            if (await _unitOfWork.Repository<Product>().Entities().AnyAsync(x => x.Name.ToLower() == command.Name.ToLower()))
             {
                 return await Response.FailureAsync(_localization["ProductExist"].Value);
             }

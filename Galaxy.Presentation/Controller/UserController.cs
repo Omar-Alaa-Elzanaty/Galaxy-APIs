@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Galaxy.Application.Features.Users.Commands.Delete;
+﻿using Galaxy.Application.Features.Users.Commands.Delete;
 using Galaxy.Application.Features.Users.Commands.EditUserRole;
 using Galaxy.Application.Features.Users.Commands.Update;
 using Galaxy.Application.Features.Users.Queries.GetAllUsers;
@@ -18,7 +13,7 @@ namespace Galaxy.Presentation.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController:ApiControllerBase
+    public class UserController : ApiControllerBase
     {
         private readonly IMediator _mediator;
 
@@ -27,23 +22,23 @@ namespace Galaxy.Presentation.Controller
             _mediator = meidator;
         }
 
+        [Authorize(Roles = $"{Roles.MANAGER},{Roles.OWNER}")]
         [HttpGet("users")]
-        [Authorize(Roles = Roles.OWNER)]
         public async Task<ActionResult<GetAllUsersQueryDto>> GetAllUsers([FromQuery] GetAllUsersQuery query)
         {
             return Ok(await _mediator.Send(query));
         }
 
+        [Authorize(Roles = $"{Roles.MANAGER},{Roles.OWNER}")]
         [HttpGet("userPassword")]
-        [Authorize(Roles = Roles.OWNER)]
-        public async Task<ActionResult<string>> GetUserPassword([FromBody]GetPasswordByUserIdQuery query)
+        public async Task<ActionResult<string>> GetUserPassword([FromBody] GetPasswordByUserIdQuery query)
         {
             return Ok(await _mediator.Send(query));
         }
 
+        [Authorize(Roles = $"{Roles.MANAGER},{Roles.OWNER}")]
         [HttpGet("userInfo/{id}")]
-        [Authorize]
-        public async Task<ActionResult<GetUserInfoQueryDto>> GetUserInfo([FromRoute]string id)
+        public async Task<ActionResult<GetUserInfoQueryDto>> GetUserInfo([FromRoute] string id)
         {
             return Ok(await _mediator.Send(new GetUserInfoQuery(id)));
         }
@@ -62,8 +57,8 @@ namespace Galaxy.Presentation.Controller
             return Ok(await _mediator.Send(command));
         }
 
+        [Authorize(Roles = $"{Roles.MANAGER},{Roles.OWNER}")]
         [HttpPut("UpdateProfile")]
-        [Authorize]
         public async Task<ActionResult<string>> UpdateProfile([FromBody] UpdateProfileCommand command)
         {
             return Ok(await _mediator.Send(command));

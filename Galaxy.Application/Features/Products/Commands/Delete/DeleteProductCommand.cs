@@ -2,6 +2,7 @@
 using Galaxy.Shared;
 using MediatR;
 using Microsoft.Extensions.Localization;
+using Pharamcy.Application.Interfaces.Media;
 
 namespace Galaxy.Application.Features.Products.Commands.Delete
 {
@@ -18,14 +19,17 @@ namespace Galaxy.Application.Features.Products.Commands.Delete
     internal class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Response>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMediaService _mediaService;
         private readonly IStringLocalizer<DeleteProductCommandHandler> _localization;
 
         public DeleteProductCommandHandler(
             IUnitOfWork unitOfWork,
-            IStringLocalizer<DeleteProductCommandHandler> localization)
+            IStringLocalizer<DeleteProductCommandHandler> localization,
+            IMediaService mediaService)
         {
             _unitOfWork = unitOfWork;
             _localization = localization;
+            _mediaService = mediaService;
         }
 
         public async Task<Response> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
@@ -36,6 +40,8 @@ namespace Galaxy.Application.Features.Products.Commands.Delete
             {
                 return await Response.FailureAsync(_localization["ItemNotFound"].Value);
             }
+
+            await _mediaService.DeleteAsync(entity.ImageUrl);
 
             await _unitOfWork.Repository<Domain.Models.Product>().DeleteAsync(entity);
             _ = await _unitOfWork.SaveAsync();

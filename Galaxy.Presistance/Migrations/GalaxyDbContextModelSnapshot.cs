@@ -151,7 +151,7 @@ namespace Galaxy.Presistance.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("CusotmersInvoices", "Galaxy");
+                    b.ToTable("CustomersInvoices", "Galaxy");
                 });
 
             modelBuilder.Entity("Galaxy.Domain.Models.CustomerInvoiceItem", b =>
@@ -266,7 +266,7 @@ namespace Galaxy.Presistance.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("ItemInStock", "Galaxy");
+                    b.ToTable("ItemsInStock", "Galaxy");
                 });
 
             modelBuilder.Entity("Galaxy.Domain.Models.Supplier", b =>

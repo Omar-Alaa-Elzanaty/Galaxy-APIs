@@ -17,12 +17,12 @@ namespace Galaxy.Presistance.Repositories
 
         public async Task<int> NumberOfProductInStock(int productId)
         {
-            return await _context.ItemInStock.Where(x => x.ProductId == productId && x.IsInStock == true).CountAsync();
+            return await _context.ItemsInStock.Where(x => x.ProductId == productId && x.IsInStock == true).CountAsync();
         }
 
         public async Task<int> NumberOfProductInStore(int productId)
         {
-            return await _context.ItemInStock.Where(x => x.ProductId == productId && x.IsInStock == false).CountAsync();
+            return await _context.ItemsInStock.Where(x => x.ProductId == productId && x.IsInStock == false).CountAsync();
         }
 
         public async void InsertImportToStock(int startSerial, int productId, int supplierId, int quantity, string intialCode)

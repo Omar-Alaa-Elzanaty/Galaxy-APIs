@@ -4,9 +4,11 @@
   "UserNotFound": ".فشل ايجاد المستخدم",
   "InvalidLogin": ".رقم المستخدم او كلمة السر غير صالح",
   "SupplierExist": ".المورد موجود مسبقا",
-  "InvalidReqeust": ".طلب غير صحيح",
+  "InvalidRequest": ".طلب غير صحيح",
   "ProductExist": ".المنتج موجود مسبقا",
+  "NoSupplierFound": "لم يتم العثور على مورد",
   "ItemNotFound": ".فشل ايجاد العنصر",
+  "NoInvoiceFound": ".لم يتم العثور على الفاتورة",
   "Unauthorize": ".لا تملك صلاحية",
   "UserNameExist": "اسم المستخدم موجود مسبقا",
   "PhoneNumberExist": "رقم الهاتف موجود مسبقا",
@@ -17,6 +19,6 @@
   "RatingLimitException": ".يجب ان يكون التقييم ما بين 1 الى 5",
   "GanderException": ".النوع يجب ان يكون ذكر او انثى فقط",
   "EmailIsNotValidExpression": ".هذا النص لا يطابق شكل الايميل",
-  "ErrorBarcoding": "",
-  "GenerateBarCodeError": ""
+  "ItemsNotFound": ".بعض المنتجات غير موجودة او ربما لا يتوفر كمية منها",
+  "SupplierNotFound": ".لم يتم العثور على المورد"
 }

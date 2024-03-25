@@ -32,9 +32,9 @@ namespace Galaxy.Presistance.Context
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Stock> ItemInStock { get; set; }
+        public DbSet<Stock> ItemsInStock { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<CustomerInvoice> CusotmersInvoices { get; set; }
+        public DbSet<CustomerInvoice> CustomersInvoices { get; set; }
         public DbSet<SupplierInvoice> SuppliersInovices { get; set; }
 
     }

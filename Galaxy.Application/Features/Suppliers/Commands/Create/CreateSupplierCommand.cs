@@ -48,7 +48,7 @@ namespace Galaxy.Application.Features.Suppliers.Commands.Create
                 return await Response.FailureAsync(_localization["InvalidReqeust"].Value);
             }
 
-            if (await _unitOfWork.Repository<Supplier>().Entities().AnyAsync(x => x.Name == command.Name))
+            if (await _unitOfWork.Repository<Supplier>().Entities().AnyAsync(x => x.Name.ToLower().Contains(command.Name.ToLower())))
             {
                 return await Response.FailureAsync(_localization["SupplierExist"].Value);
             }

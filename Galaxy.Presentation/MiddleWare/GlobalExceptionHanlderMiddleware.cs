@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using Galaxy.Shared;
+using Galaxy.Shared.ErrorHandling;
+using Galaxy.Shared.ErrorHandling.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
-using Galaxy.Shared.ErrorHandling;
 
 
 namespace Galaxy.Presentation.Middleware
@@ -28,7 +25,6 @@ namespace Galaxy.Presentation.Middleware
         {
             try
             {
-                await _next(context);
                 if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
                 {
 
@@ -48,13 +44,35 @@ namespace Galaxy.Presentation.Middleware
                     await context.Response.WriteAsync(exceptionResult);
                     return;
                 }
-
+                await _next(context);
             }
             catch (GlobalException ex)
             {
                 await HandlingExceptionAsync(context, ex);
             }
+            catch (Exception ex)
+            {
+                await HandlingExceptionAsync(context, ex);
+            }
         }
+
+        private static Task HandlingExceptionAsync(HttpContext context, Exception ex)
+        {
+            var response = new Response();
+            response.IsSuccess = false;
+            response.Message = ex.Message;
+            response.StatusCode = HttpStatusCode.InternalServerError;
+            var jsonOptions = new JsonSerializerOptions()
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+            var exceptionResult = JsonSerializer.Serialize(response, jsonOptions);
+
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)HttpStatusCode.OK;
+            return context.Response.WriteAsync(exceptionResult);
+        }
+
         private static Task HandlingExceptionAsync(HttpContext context, GlobalException exception)
         {
             var response = new Response() { IsSuccess = false };

@@ -6,13 +6,12 @@ using Galaxy.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
 
 namespace Galaxy.Presentation.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = Roles.OWNER)]
+    [Authorize(Roles = $"{Roles.OWNER},{Roles.MANAGER},{Roles.SALE}")]
     public class CustomerInvoiceController : ApiControllerBase
     {
         private readonly IMediator _mediator;

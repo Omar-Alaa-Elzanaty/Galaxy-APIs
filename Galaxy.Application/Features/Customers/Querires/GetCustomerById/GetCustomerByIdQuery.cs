@@ -1,8 +1,10 @@
 ﻿using Galaxy.Application.Interfaces.Repositories;
 using Galaxy.Domain.Models;
 using Galaxy.Shared;
+using Mapster;
 using MapsterMapper;
 using MediatR;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Localization;
 
 namespace Galaxy.Application.Features.Customers.Querires.GetCustomerById
@@ -19,17 +21,18 @@ namespace Galaxy.Application.Features.Customers.Querires.GetCustomerById
     internal class GetCustomerByIdQueryHandler : IRequestHandler<GetCustomerByIdQuery, Response>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        private readonly IMemoryCache _memoryCache;
         private readonly IStringLocalizer<GetCustomerByIdQueryHandler> _localization;
 
         public GetCustomerByIdQueryHandler(
             IUnitOfWork unitOfWork,
-            IMapper mapper,
-            IStringLocalizer<GetCustomerByIdQueryHandler> stringLocalizer)
+            IStringLocalizer<GetCustomerByIdQueryHandler> stringLocalizer,
+            IMemoryCache memoryCache)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
+
             _localization = stringLocalizer;
+            _memoryCache = memoryCache;
         }
 
         public async Task<Response> Handle(GetCustomerByIdQuery query, CancellationToken cancellationToken)
@@ -41,9 +44,14 @@ namespace Galaxy.Application.Features.Customers.Querires.GetCustomerById
                 return await Response.FailureAsync(_localization["InvalidRequest"].Value);
             }
 
-            var customer = _mapper.Map<GetCustomerByIdQueryDto>(entity);
+            var customer = await _memoryCache.GetOrCreateAsync($"CustomerInvoiceHistory_{entity.Id}",async option =>
+            {
+                await Task.CompletedTask;
+                option.SlidingExpiration = TimeSpan.FromMinutes(5);
+                return entity.Adapt<GetCustomerByIdQueryDto>();
+            });
 
-            return await Response.SuccessAsync(customer, _localization["Success"].Value);
+            return await Response.SuccessAsync(customer!, _localization["Success"].Value);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Galaxy.Application.Features.CustomerInvoices.Queries.GetAllCustomerInv
     {
         public int CustomerId { get; set; }
 
-        public GetAllCustomerInvoiceByCustomerIdColumn GetAllCustomerInvoiceByCustomerIdColumn { get; set; }
+        public GetAllCustomerInvoiceByCustomerIdColumn? GetAllCustomerInvoiceByCustomerIdColumn { get; set; }
     }
 
     internal class GetAllcustomerInvoiceQueryHandler : IRequestHandler<GetAllcustomerInvoiceByCustomerIdQuery, PaginatedResponse<GetAllcustomerInvoiceByCustomerIdQueryDto>>
@@ -28,15 +28,18 @@ namespace Galaxy.Application.Features.CustomerInvoices.Queries.GetAllCustomerInv
             var customerInvoices = _unitOfWork.Repository<CustomerInvoice>()
                            .Entities().Where(x => x.CustomerId == query.CustomerId);
 
-            switch (query.GetAllCustomerInvoiceByCustomerIdColumn)
+            if (query.GetAllCustomerInvoiceByCustomerIdColumn is not null)
             {
-                case GetAllCustomerInvoiceByCustomerIdColumn.Total:
-                    customerInvoices = customerInvoices.OrderBy(x => x.Total);
-                    break;
+                switch (query.GetAllCustomerInvoiceByCustomerIdColumn)
+                {
+                    case GetAllCustomerInvoiceByCustomerIdColumn.Total:
+                        customerInvoices = customerInvoices.OrderBy(x => x.Total);
+                        break;
 
-                case GetAllCustomerInvoiceByCustomerIdColumn.CreationDate:
-                    customerInvoices = customerInvoices.OrderBy(x => x.CreationDate);
-                    break;
+                    case GetAllCustomerInvoiceByCustomerIdColumn.CreationDate:
+                        customerInvoices = customerInvoices.OrderBy(x => x.CreationDate);
+                        break;
+                } 
             }
 
             return await customerInvoices.ProjectToType<GetAllcustomerInvoiceByCustomerIdQueryDto>()

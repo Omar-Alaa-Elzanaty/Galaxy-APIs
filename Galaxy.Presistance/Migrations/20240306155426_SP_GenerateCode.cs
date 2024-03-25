@@ -19,7 +19,7 @@ namespace Galaxy.Presistance.Migrations
                                  " begin" +
                                  " declare @item varchar(max)=convert(varchar(max),@startSerial);" +
                                  " set @Serial=@IntialCode+(select REPLICATE('0', 5-Len(@item))+@item as newitem);" +
-                                 " insert into Galaxy.ItemInStock (IsInStock,ProductId,SupplierId,BarCode) values(1,@productId,@SupplierId,@Serial);" +
+                                 " insert into Galaxy.ItemsInStock (IsInStock,ProductId,SupplierId,BarCode) values(1,@productId,@SupplierId,@Serial);" +
                                  " set @StartSerial+=1;" +
                                  " set @count+=1;" +
                                  " end");

@@ -39,7 +39,7 @@ namespace Galaxy.Application.Features.Users.Queries.GetPasswordByUserId
                 return await Response.FailureAsync(_localization["Unauthorize"].Value, HttpStatusCode.Unauthorized);
             }
 
-            return await Response.SuccessAsync(user.Password);
+            return await Response.SuccessAsync(data: user.Password);
 
         }
     }

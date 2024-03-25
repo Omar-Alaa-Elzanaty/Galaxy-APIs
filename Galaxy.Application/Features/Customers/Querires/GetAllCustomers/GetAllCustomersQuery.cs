@@ -11,7 +11,7 @@ namespace Galaxy.Application.Features.Customers.Querires.GetAllCustomers
 {
     public record GetAllCustomersQuery : PaginatedRequest, IRequest<PaginatedResponse<GetAllCustomersQueryDto>>
     {
-        public CustomerColumnName ColumnName { get; set; }
+        public CustomerColumnName? ColumnName { get; set; }
     }
 
     internal class GetAllCustomersQueryHandler : IRequestHandler<GetAllCustomersQuery, PaginatedResponse<GetAllCustomersQueryDto>>
@@ -30,22 +30,25 @@ namespace Galaxy.Application.Features.Customers.Querires.GetAllCustomers
 
             if (!query.KeyWord.IsNullOrEmpty())
             {
-                entities = entities.Where(x => x.Name.Contains(query.KeyWord));
+                entities = entities.Where(x => x.Name.ToLower().Contains(query.KeyWord!.ToLower()));
             }
 
-            switch (query.ColumnName)
+            if(query.ColumnName is not null)
             {
-                case CustomerColumnName.Name:
-                    entities = entities.OrderBy(x => x.Name);
-                    break;
+                switch (query.ColumnName)
+                {
+                    case CustomerColumnName.Name:
+                        entities = entities.OrderBy(x => x.Name);
+                        break;
 
-                case CustomerColumnName.PhoneNumber:
-                    entities = entities.OrderBy(x => x.PhoneNumber);
-                    break;
+                    case CustomerColumnName.PhoneNumber:
+                        entities = entities.OrderBy(x => x.PhoneNumber);
+                        break;
 
-                case CustomerColumnName.CreationDate:
-                    entities = entities.OrderBy(x => x.CreationDate);
-                    break;
+                    case CustomerColumnName.CreationDate:
+                        entities = entities.OrderBy(x => x.CreationDate);
+                        break;
+                }
             }
 
             var customers = await entities.ProjectToType<GetAllCustomersQueryDto>()

@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Galaxy.Application.Features.Products.Commands.Create;
 using Galaxy.Application.Interfaces.Repositories;
 using Galaxy.Shared;
 using MapsterMapper;
@@ -12,7 +11,7 @@ namespace Galaxy.Application.Features.Products.Commands.Update
 {
     public record UpdateProductCommand : IRequest<Response>
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public IFormFile? ImageFile { get; set; }
         public int Rating { get; set; }
@@ -50,14 +49,14 @@ namespace Galaxy.Application.Features.Products.Commands.Update
                 return await Response.FailureAsync(validationResult.Errors.First().ErrorMessage);
             }
 
-            var entity = await _unitOfWork.Repository<Domain.Models.Product>().GetByIdAsync(command.id);
+            var entity = await _unitOfWork.Repository<Domain.Models.Product>().GetByIdAsync(command.Id);
 
             if (entity is null)
             {
                 return await Response.FailureAsync(_localization["ItemNotFound"].Value);
             }
 
-            entity = _mapper.Map<Domain.Models.Product>(command);
+            _mapper.Map(entity,command);
             entity.ImageUrl = await _mediaService.UpdateAsync(entity.ImageUrl, command.ImageFile);
 
             await _unitOfWork.Repository<Domain.Models.Product>().UpdateAsync(entity);
