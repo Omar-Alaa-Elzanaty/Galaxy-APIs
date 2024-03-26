@@ -41,8 +41,8 @@ namespace Galaxy.Application.Features.Suppliers.Commands.Delete
                 return await Response.FailureAsync(_localization["NoSupplierFound"].Value);
             }
 
-            await _mediaService.DeleteAsync(supplier.IdUrl);
-            await _mediaService.DeleteAsync(supplier.ImageUrl);
+            await _mediaService.DeleteAsync(supplier.IdFilePath);
+            await _mediaService.DeleteAsync(supplier.ImageFileName);
 
             await _unitOfWork.Repository<Supplier>().DeleteAsync(supplier);
             await _unitOfWork.SaveAsync();

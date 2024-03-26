@@ -28,7 +28,7 @@ namespace Galaxy.Application.Features.Suppliers.Queries.GetAllSuppliers
                            {
                                Id = x.Id,
                                Name = x.Name,
-                               IdUrl = x.IdUrl,
+                               IdUrl = x.IdFilePath,
                                ImageUrl = x.ImageUrl,
                                LatestPurchase = x.Invoices.OrderBy(x => x.CreationDate).FirstOrDefault()!.CreationDate
                            });

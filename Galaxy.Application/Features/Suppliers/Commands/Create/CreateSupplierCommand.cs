@@ -54,8 +54,8 @@ namespace Galaxy.Application.Features.Suppliers.Commands.Create
             }
 
             var supplier = _mapper.Map<Supplier>(command);
-            supplier.ImageUrl = await _mediaService.SaveAsync(command.ImageFile);
-            supplier.IdUrl = await _mediaService.SaveAsync(command.IdFile);
+            supplier.ImageFileName = await _mediaService.SaveAsync(command.ImageFile);
+            supplier.IdFilePath = await _mediaService.SaveAsync(command.IdFile);
 
             await _unitOfWork.Repository<Supplier>().AddAsync(supplier);
             _ = await _unitOfWork.SaveAsync();

@@ -55,7 +55,7 @@ namespace Pharamcy.Infrastructure.Media
 
             var baseUrl = @$"{_httpContext.Request.Scheme}://{_httpContext.Request.Host}/Images/";
 
-            return baseUrl + uniqueFileName;
+            return /*baseUrl +*/ uniqueFileName;
         }
 
         public async Task<string> UpdateAsync(string oldUrl, IFormFile? newMedia)

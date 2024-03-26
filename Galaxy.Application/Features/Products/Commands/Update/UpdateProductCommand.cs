@@ -57,7 +57,7 @@ namespace Galaxy.Application.Features.Products.Commands.Update
             }
 
             _mapper.Map(entity,command);
-            entity.ImageUrl = await _mediaService.UpdateAsync(entity.ImageUrl, command.ImageFile);
+            entity.ImageFileName = await _mediaService.UpdateAsync(entity.ImageFileName, command.ImageFile);
 
             await _unitOfWork.Repository<Domain.Models.Product>().UpdateAsync(entity);
 

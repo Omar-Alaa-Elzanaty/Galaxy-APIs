@@ -59,7 +59,7 @@ namespace Galaxy.Application.Features.Products.Commands.Create
             }
 
             var product = _mapper.Map<Product>(command);
-            product.ImageUrl = await _mediaService.SaveAsync(command.ImageFile);
+            product.ImageFileName = await _mediaService.SaveAsync(command.ImageFile);
 
 
             var productCount = await _unitOfWork.Repository<Product>().Entities().CountAsync(cancellationToken: cancellationToken) + 1;

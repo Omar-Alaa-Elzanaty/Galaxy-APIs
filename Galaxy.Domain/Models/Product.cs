@@ -1,9 +1,13 @@
-﻿namespace Galaxy.Domain.Models
+﻿using Galaxy.Domain.Constants;
+using static System.Net.WebRequestMethods;
+
+namespace Galaxy.Domain.Models
 {
     public class Product : BaseEntity
     {
         public string Name { get; set; }
-        public string ImageUrl { get; set; }
+        public string ImageFileName { get; set; }
+        public string ImageUrl => HostPath.ImageBaseUrl + ImageFileName;
         public double CurrentPurchase { get; set; }
         public double SellingPrice { get; set; }
         public int Rating { get; set; }

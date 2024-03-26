@@ -46,12 +46,12 @@ namespace Galaxy.Application.Features.Suppliers.Commands.Update
 
             if (command.IdImageFile is not null)
             {
-                supplier.IdUrl = await _mediaService.UpdateAsync(supplier.IdUrl, command.IdImageFile);
+                supplier.IdFilePath = await _mediaService.UpdateAsync(supplier.IdFilePath, command.IdImageFile);
             }
 
             if (command.ProfileImageFile is not null)
             {
-                supplier.ImageUrl = await _mediaService.UpdateAsync(supplier.ImageUrl, command.ProfileImageFile);
+                supplier.ImageFileName = await _mediaService.UpdateAsync(supplier.ImageFileName, command.ProfileImageFile);
             }
 
             await _unitOfWork.Repository<Supplier>().UpdateAsync(supplier);
