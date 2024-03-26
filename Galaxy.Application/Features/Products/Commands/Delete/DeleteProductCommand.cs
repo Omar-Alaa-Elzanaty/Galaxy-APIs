@@ -41,7 +41,7 @@ namespace Galaxy.Application.Features.Products.Commands.Delete
                 return await Response.FailureAsync(_localization["ItemNotFound"].Value);
             }
 
-            await _mediaService.DeleteAsync(entity.ImageUrl);
+            await _mediaService.DeleteAsync(entity.ImageFileName);
 
             await _unitOfWork.Repository<Domain.Models.Product>().DeleteAsync(entity);
             _ = await _unitOfWork.SaveAsync();
