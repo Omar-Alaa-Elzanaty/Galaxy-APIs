@@ -30,7 +30,7 @@ namespace Galaxy.Presentation.Controller
         }
 
         [Authorize(Roles = $"{Roles.MANAGER},{Roles.OWNER}")]
-        [HttpGet("userPassword")]
+        [HttpPost("userPassword")]
         public async Task<ActionResult<string>> GetUserPassword([FromBody] GetPasswordByUserIdQuery query)
         {
             return Ok(await _mediator.Send(query));

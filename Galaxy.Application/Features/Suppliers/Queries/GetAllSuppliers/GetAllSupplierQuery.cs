@@ -28,7 +28,7 @@ namespace Galaxy.Application.Features.Suppliers.Queries.GetAllSuppliers
                            {
                                Id = x.Id,
                                Name = x.Name,
-                               IdUrl = x.IdFilePath,
+                               IdUrl = x.IdUrl,
                                ImageUrl = x.ImageUrl,
                                LatestPurchase = x.Invoices.OrderBy(x => x.CreationDate).FirstOrDefault()!.CreationDate
                            });
@@ -48,7 +48,7 @@ namespace Galaxy.Application.Features.Suppliers.Queries.GetAllSuppliers
                         break;
 
                     case GetAllSupplierColumn.LatestPurchase:
-                        suppliers = suppliers.OrderBy(x => x.LatestPurchase);
+                        suppliers = suppliers.OrderByDescending(x => x.LatestPurchase);
                         break;
                 }
             }
